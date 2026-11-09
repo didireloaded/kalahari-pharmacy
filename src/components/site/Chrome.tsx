@@ -7,6 +7,7 @@ import { useParallax } from "@/lib/motion";
 import { useBasket } from "@/lib/basket";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import { MobileContactBar } from "@/components/site/Utility";
 
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
@@ -21,11 +22,17 @@ const links = [
   { to: "/explore", label: "Explore" },
   { to: "/store", label: "Store" },
   { to: "/services", label: "Services" },
-  { to: "/prescriptions", label: "Prescriptions" },
   { to: "/about", label: "About" },
   { to: "/faqs", label: "FAQs" },
   { to: "/visit", label: "Visit" },
   { to: "/contact", label: "Contact" },
+] as const;
+const extraLinks = [
+  { to: "/prescriptions", label: "Prescriptions" },
+  { to: "/medical-aid", label: "Medical aid" },
+  { to: "/clinic", label: "Screenings" },
+  { to: "/travel", label: "Safari kit builder" },
+  { to: "/wellness-guide", label: "Wellness AI guide" },
 ] as const;
 
 export function Nav() {
@@ -93,7 +100,7 @@ export function Nav() {
               <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-sun px-1 text-xs font-semibold text-sun-foreground">{basket.length + items.length}</span>
             )}
           </Link>
-          <Sheet open={open} onOpenChange={setOpen}><SheetTrigger asChild><Button variant="ghost" size="icon" aria-label="Open menu" className={introStage ? "" : "min-[1440px]:hidden"}><Menu /></Button></SheetTrigger><SheetContent className="w-full max-w-md overflow-y-auto"><SheetTitle>Kalahari Pharmacy</SheetTitle><SheetDescription>Pages and enquiry lists</SheetDescription><nav aria-label="All pages" className="mt-6">{[...links, { to: '/enquiry', label: 'My enquiry list' }, { to: '/cart', label: 'Request basket' }].map((l) => <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="block py-3 text-xl font-medium">{l.label}</Link>)}</nav></SheetContent></Sheet>
+          <Sheet open={open} onOpenChange={setOpen}><SheetTrigger asChild><Button variant="ghost" size="icon" aria-label="Open menu" className={introStage ? "" : "min-[1440px]:hidden"}><Menu /></Button></SheetTrigger><SheetContent className="w-full max-w-md overflow-y-auto"><SheetTitle>Kalahari Pharmacy</SheetTitle><SheetDescription>Pages and enquiry lists</SheetDescription><nav aria-label="All pages" className="mt-6">{[...links, ...extraLinks, { to: '/enquiry', label: 'My enquiry list' }, { to: '/cart', label: 'Request basket' }].map((l) => <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="block py-3 text-xl font-medium">{l.label}</Link>)}</nav></SheetContent></Sheet>
         </div>
       </nav>
       {false && open && (
@@ -149,7 +156,7 @@ export function Footer() {
         </div>
       </div>
       <p className="mt-10 text-xs text-muted-foreground">© {new Date().getFullYear()} Kalahari Pharmacy, Windhoek.</p>
-      <div className="mt-8 flex flex-wrap gap-x-6 gap-y-4 text-base">{[...links, {to:'/privacy',label:'Privacy'}, {to:'/terms',label:'Terms'}, {to:'/accessibility',label:'Accessibility'}, {to:'/enquiry',label:'Enquiry list'}].map((l) => <Link key={l.to} to={l.to} className="underline underline-offset-4">{l.label}</Link>)}</div>
+      <div className="mt-8 flex flex-wrap gap-x-6 gap-y-4 text-base">{[...links, ...extraLinks, {to:'/privacy',label:'Privacy'}, {to:'/terms',label:'Terms'}, {to:'/accessibility',label:'Accessibility'}, {to:'/enquiry',label:'Enquiry list'}].map((l) => <Link key={l.to} to={l.to} className="underline underline-offset-4">{l.label}</Link>)}</div>
     </footer>
   );
 }
@@ -164,6 +171,7 @@ export function Shell({ children }: { children: ReactNode }) {
         <main id="main">{children}</main>
         <Footer />
       </div>
+      <MobileContactBar />
     </div>
   );
 }

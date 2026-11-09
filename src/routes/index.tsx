@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, MapPin, MessageCircle, Phone, Mail
 import { business, categories, featured, getCategory, images, infoCards, messages, type Category } from "@/content/site";
 import { useReveal } from "@/lib/motion";
 import { ScrollHero } from "@/components/site/ScrollHero";
+import { VisitUtilityStrip } from "@/components/site/Utility";
 import { CategoryDialog } from "@/components/site/CategoryDetail";
 
 export const Route = createFileRoute("/")({
@@ -26,6 +27,7 @@ function Index() {
     <>
       <ScrollHero />
       <div className="relative z-10 -mt-[10vh] rounded-t-shell bg-paper md:-mt-[15vh]">
+        <VisitUtilityStrip />
         <About />
         <Products onOpen={setOpen} />
       </div>
@@ -150,7 +152,7 @@ function Editorial() {
   const [i, setI] = useState(0);
   const [dir, setDir] = useState(1);
   const go = (d: number) => { setDir(d); setI((p) => (p + d + messages.length) % messages.length); };
-  const m = messages[i];
+  const m = messages[i] ?? messages[0]!;
   return (
     <section ref={ref} data-nav="light" className="px-6 py-24 md:px-14 md:py-36" aria-roledescription="carousel" aria-label="Why care matters">
       <h2 className="display mx-auto max-w-5xl text-center text-[clamp(2.75rem,7vw,6.5rem)]"><Line>Why everyday</Line><Line d={100}>care matters.</Line></h2>

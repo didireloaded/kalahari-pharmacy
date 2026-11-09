@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { EnquiryProvider } from "@/lib/enquiry";
 import { Shell } from "@/components/site/Chrome";
 import { BasketProvider } from "@/lib/basket";
+import { business } from "@/content/site";
 
 function NotFoundComponent() {
   return (
@@ -69,6 +70,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://images.unsplash.com" },
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "manifest", href: "/manifest.webmanifest" },
     ],
   }),
   shellComponent: RootShell,
@@ -80,7 +82,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <head><HeadContent /></head>
+      <head><HeadContent /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context":"https://schema.org",
+        "@type":"Pharmacy",
+        name: business.name,
+        telephone: business.phoneDisplay,
+        email: business.email,
+        address: { "@type":"PostalAddress", streetAddress:"Gustav Voigts Centre, Independence Avenue", addressLocality:"Windhoek", addressCountry:"NA" },
+        sameAs: [business.instagram],
+      }).replace(/</g,"\\u003c") }} /></head>
       <body>
         {children}
         <Scripts />
@@ -91,6 +101,11 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useEffect(() => {
+    if (import.meta.env.PROD && "serviceWorker" in navigator) {
+      void navigator.serviceWorker.register("/service-worker.js").catch(() => undefined);
+    }
+  }, []);
   return (
     <QueryClientProvider client={queryClient}>
       <EnquiryProvider>
