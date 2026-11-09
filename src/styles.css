@@ -177,8 +177,8 @@
 }
 
 /* Kalahari editorial v2. Keep the established palette from the first build. */
-/* Navigation remains stationary as the page scrolls. Only link backgrounds change on hover. */
-.site-header { margin-inline: auto; }
+/* Fixed, opaque, full-width header with no exposed canvas behind it. */
+.site-header { margin: 0; background: var(--paper); }
 .site-header .nav-link { text-decoration: none; }
 .site-header .nav-link:is(:hover, :focus-visible, [aria-current="page"]) {
   background-color: var(--ice);
@@ -190,7 +190,6 @@
 .hero-person { transform: translate3d(-50%, calc(-50% + var(--assembled-offset, 90px)), 0) scale(var(--portrait-scale, .8)); }
 .hero-object-left { transform: translate3d(calc(var(--object-offset, 155px) * -1), 0, 0) rotate(-12deg); filter: drop-shadow(0 24px 22px rgb(0 0 0 / 25%)); }
 .hero-object-right { transform: translate3d(var(--object-offset, 155px), 0, 0) rotate(11deg); filter: drop-shadow(0 24px 22px rgb(0 0 0 / 25%)); }
-.hero-scroll-cue { opacity: var(--scroll-cue-opacity, 1); }
 @media (max-width: 767px) {
   .hero-person { filter: brightness(.8); }
   .hero-copy h1 { max-width: 11ch; }

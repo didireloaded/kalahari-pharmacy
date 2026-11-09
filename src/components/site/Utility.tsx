@@ -19,8 +19,8 @@ export function VisitUtilityStrip() {
     </div>
   </section>;
 }
-export function MobileContactBar() {
-  return <aside aria-label="Quick pharmacy actions" className="mobile-contact-bar fixed inset-x-0 bottom-0 z-[60] flex gap-3 border-t border-border bg-paper p-3 pb-[max(.75rem,env(safe-area-inset-bottom))] shadow-lg md:hidden">
+export function MobileContactBar({ visible = true }: { visible?: boolean }) {
+  return <aside inert={!visible} aria-hidden={!visible} aria-label="Quick pharmacy actions" className={`mobile-contact-bar fixed inset-x-0 bottom-0 z-[60] flex gap-3 border-t border-border bg-paper p-3 pb-[max(.75rem,env(safe-area-inset-bottom))] shadow-lg transition-opacity duration-300 md:hidden ${visible ? "opacity-100" : "pointer-events-none opacity-0"}`}>
     <a href={business.phoneHref} className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-ink px-4 py-3 font-semibold text-paper"><Phone className="size-4"/>Call</a>
     <a href={business.mapsUrl} target="_blank" rel="noopener noreferrer" className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full border border-ink px-4 py-3 font-semibold text-ink"><MapPin className="size-4"/>Directions</a>
   </aside>;

@@ -2,12 +2,12 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import introAsset from "@/assets/wellness-intro.jpg.asset.json";
 import { images, objects } from "@/content/site";
-import { ArrowDown, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 /**
  * Intro begins as an edge-to-edge wellness photograph. Native scrolling advances
  * a sticky assembly sequence into the established blue brand composition.
- * No scroll interception. Keyboard and reduced-motion users can skip the intro.
+ * No scroll interception. Keyboard users retain the global skip-to-content link.
  */
 export function ScrollHero() {
   const section = useRef<HTMLElement>(null);
@@ -36,7 +36,6 @@ export function ScrollHero() {
       root.style.setProperty("--assembled-offset", String(reduced ? 0 : Math.round((1 - complete) * 90)) + "px");
       root.style.setProperty("--object-offset", String(reduced ? 0 : Math.round((1 - complete) * 155)) + "px");
       root.style.setProperty("--portrait-scale", String(reduced ? 1 : 0.8 + complete * 0.2));
-      root.style.setProperty("--scroll-cue-opacity", String(reduced ? 0 : clamp(1 - scroll * 5)));
     };
     const update = () => {
       if (!frame) frame = window.requestAnimationFrame(tick);
@@ -53,19 +52,12 @@ export function ScrollHero() {
     };
   }, []);
 
-  const skip = () => {
-    document.getElementById("about")?.scrollIntoView({
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
-      block: "start",
-    });
-  };
-
   return (
     <section ref={section} className="scroll-hero relative h-[195svh] min-h-[1100px] md:h-[215svh]" data-nav="dark" aria-label="Kalahari Pharmacy introduction">
       <div className="sticky top-0 h-[100svh] min-h-[540px] overflow-hidden bg-hero">
         <div className="hero-intro absolute inset-0" aria-hidden="true">
           <img src={introAsset.url} alt="" className="h-full w-full object-cover object-center" fetchPriority="high" />
-          <div className="absolute inset-0 bg-ink/20" />
+
         </div>
         <div inert aria-hidden="true" className="hero-assembled absolute inset-0 flex flex-col items-center justify-center overflow-hidden bg-hero px-5 text-center text-paper md:px-12">
           <div aria-hidden="true" className="pointer-events-none absolute -left-32 top-10 h-[65vw] w-[65vw] rounded-full bg-hero-deep/20" />
@@ -90,12 +82,7 @@ export function ScrollHero() {
             </div>
           </div>
         </div>
-        <div className="hero-scroll-cue pointer-events-none absolute inset-x-0 bottom-9 z-40 flex justify-center text-paper">
-          <span className="flex items-center gap-2 rounded-full bg-ink/35 px-5 py-3 text-sm">Scroll to discover <ArrowDown className="size-4" /></span>
-        </div>
-        <button type="button" onClick={skip}
-          className="absolute bottom-9 right-5 z-50 rounded-full bg-paper/90 px-4 py-3 text-sm font-semibold text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-offset-2 md:right-10"
-          aria-label="Skip the animated introduction and go to about Kalahari Pharmacy">Skip intro</button>
+
       </div>
     </section>
   );

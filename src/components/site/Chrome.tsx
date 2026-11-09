@@ -35,7 +35,7 @@ const extraLinks = [
   { to: "/wellness-guide", label: "Wellness AI guide" },
 ] as const;
 
-export function Nav() {
+export function Nav({ visible }: { visible: boolean }) {
   const [open, setOpen] = useState(false);
   const { items } = useEnquiry();
   const { items: basket } = useBasket();
@@ -44,8 +44,8 @@ export function Nav() {
   const pill = "bg-ice text-ink hover:bg-ice/90";
 
   return (
-    <header className="site-header fixed inset-x-3 top-3 z-50 md:inset-x-[4vw] md:top-4">
-      <nav aria-label="Main" className="flex items-center justify-between gap-3 rounded-lg bg-paper px-4 py-3 text-ink shadow-[0_10px_28px_rgba(0,0,0,0.08)]">
+    <header inert={!visible} aria-hidden={!visible} className={`site-header fixed inset-x-0 top-0 z-[80] w-full border-b border-border bg-paper shadow-[0_6px_24px_rgba(0,0,0,0.08)] transition-[opacity,transform] duration-300 ease-out ${visible ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-full opacity-0"}`}>
+      <nav aria-label="Main" className="mx-auto flex w-full max-w-[1700px] items-center justify-between gap-3 bg-paper px-4 py-3 text-ink md:px-[4vw]">
         <Link to="/" aria-label="Kalahari Pharmacy home" className="text-xl md:text-2xl">
           <Wordmark />
         </Link>
@@ -121,15 +121,42 @@ export function Footer() {
 
 export function Shell({ children }: { children: ReactNode }) {
   useParallax();
+  const path = useRouterState({ select: (s) => s.location.pathname });
+  const [introScrolled, setIntroScrolled] = useState(false);
+
+  useEffect(() => {
+    if (path !== "/") return;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateVisibility = () => {
+      setIntroScrolled(
+        window.scrollY > Math.max(48, window.innerHeight * 0.08) ||
+        prefersReducedMotion.matches,
+      );
+    };
+    updateVisibility();
+    window.addEventListener("scroll", updateVisibility, { passive: true });
+    window.addEventListener("resize", updateVisibility);
+    prefersReducedMotion.addEventListener("change", updateVisibility);
+    return () => {
+      window.removeEventListener("scroll", updateVisibility);
+      window.removeEventListener("resize", updateVisibility);
+      prefersReducedMotion.removeEventListener("change", updateVisibility);
+    };
+  }, [path]);
+
+  // The homepage opens as an uninterrupted photograph. Navigation and mobile
+  // contact actions emerge on scroll; other pages have navigation immediately.
+  const showChrome = path !== "/" || introScrolled;
+
   return (
-    <div className="site-shell min-h-screen p-3 pb-24 md:p-[4vw]">
-      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-paper focus:px-4 focus:py-2">Skip to content</a>
-      <Nav />
-      <div className="relative overflow-clip rounded-shell bg-paper">
+    <div className={path === "/" ? "site-shell min-h-screen p-0 pb-24 md:pb-0" : "site-shell min-h-screen p-3 pb-24 md:p-[4vw]"}>
+      <a href={path === "/" ? "#about" : "#main"} className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-paper focus:px-4 focus:py-2">Skip to content</a>
+      <Nav visible={showChrome} />
+      <div className={path === "/" ? "relative overflow-clip bg-paper" : "relative overflow-clip rounded-shell bg-paper"}>
         <main id="main">{children}</main>
         <Footer />
       </div>
-      <MobileContactBar />
+      <MobileContactBar visible={showChrome} />
     </div>
   );
 }
