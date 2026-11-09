@@ -103,14 +103,14 @@ function Products({ onOpen }: { onOpen: (c: Category) => void }) {
   const ref = useReveal<HTMLElement>();
   const feat = featured.map((s) => getCategory(s)!);
   return (
-    <section ref={ref} className="px-3 pb-24 md:px-10 md:pb-32" data-nav="light" aria-labelledby="browse-h">
-      <div className="mb-10 flex flex-col items-start justify-between gap-4 px-3 md:flex-row md:items-end">
+    <section ref={ref} className="w-full px-0 pb-24 md:pb-32" data-nav="light" aria-labelledby="browse-h">
+      <div className="mb-10 flex flex-col items-start justify-between gap-4 px-6 md:flex-row md:items-end md:px-14">
         <h2 id="browse-h" className="display text-[clamp(2.5rem,6vw,5.5rem)]"><Line>Browse what</Line><Line d={100}>we can help with.</Line></h2>
         <Link to="/explore" className="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm text-paper">
           All {categories.length} categories <ArrowUpRight className="nudge h-4 w-4" />
         </Link>
       </div>
-      <div className="grid gap-3 md:grid-cols-2 md:gap-5">
+      <div className="grid gap-0 md:grid-cols-2">
         {feat.map((c, i) => <ProductPanel key={c.slug} cat={c} onOpen={onOpen} delay={i * 180} idx={i} />)}
       </div>
     </section>
@@ -191,8 +191,8 @@ function Editorial() {
 function Visit() {
   const ref = useReveal<HTMLElement>();
   return (
-    <section ref={ref} className="px-3 md:px-10" data-nav="dark">
-      <div data-reveal className="reveal grid gap-10 rounded-[28px] bg-hero p-8 text-paper md:grid-cols-2 md:rounded-[36px] md:p-14">
+    <section ref={ref} className="w-full px-0" data-nav="dark">
+      <div data-reveal className="reveal grid gap-10 bg-hero p-8 text-paper md:grid-cols-2 md:p-14">
         <div>
           <p className="eyebrow text-ice">Visit</p>
           <h2 className="display mt-4 text-[clamp(2.75rem,6vw,5.5rem)]">Come say hello.</h2>

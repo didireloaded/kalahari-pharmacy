@@ -149,10 +149,10 @@ export function Shell({ children }: { children: ReactNode }) {
   const showChrome = path !== "/" || introScrolled;
 
   return (
-    <div className={path === "/" ? "site-shell min-h-screen p-0 pb-24 md:pb-0" : "site-shell min-h-screen p-3 pb-24 md:p-[4vw]"}>
+    <div className="site-shell min-h-screen w-full min-w-0 overflow-x-clip bg-paper pb-24 md:pb-0">
       <a href={path === "/" ? "#about" : "#main"} className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-paper focus:px-4 focus:py-2">Skip to content</a>
       <Nav visible={showChrome} />
-      <div className={path === "/" ? "relative overflow-clip bg-paper" : "relative overflow-clip rounded-shell bg-paper"}>
+      <div className="relative w-full min-w-0 overflow-clip bg-paper">
         <main id="main">{children}</main>
         <Footer />
       </div>
