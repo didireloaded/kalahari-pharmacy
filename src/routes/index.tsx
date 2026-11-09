@@ -1,9 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, type PointerEvent } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, MapPin, MessageCircle, Phone, Mail, Instagram } from "lucide-react";
-import { business, categories, featured, getCategory, images, infoCards, messages, objects, type Category } from "@/content/site";
+import { business, categories, featured, getCategory, images, infoCards, messages, type Category } from "@/content/site";
 import { useReveal } from "@/lib/motion";
-import { Loader } from "@/components/site/Chrome";
+import { ScrollHero } from "@/components/site/ScrollHero";
 import { CategoryDialog } from "@/components/site/CategoryDetail";
 
 export const Route = createFileRoute("/")({
@@ -24,9 +24,8 @@ function Index() {
   const [open, setOpen] = useState<Category | null>(null);
   return (
     <>
-      <Loader />
-      <Hero />
-      <div className="relative z-10 -mt-[18vh] rounded-t-shell bg-paper md:-mt-[28vh]">
+      <ScrollHero />
+      <div className="relative z-10 -mt-[10vh] rounded-t-shell bg-paper md:-mt-[15vh]">
         <About />
         <Products onOpen={setOpen} />
       </div>
@@ -42,42 +41,10 @@ const Line = ({ children, d = 0, className = "" }: { children: React.ReactNode; 
   <span className={`line-mask ${className}`}><span style={{ transitionDelay: `${d}ms` }}>{children}</span></span>
 );
 
-function Hero() {
-  const ref = useReveal<HTMLElement>();
-  return (
-    <section ref={ref} data-nav="dark" className="sticky top-0 h-[100svh] min-h-[640px] overflow-hidden bg-hero text-paper">
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-[20%] top-[10%] h-[70vh] w-[70vh] rounded-full bg-hero-deep/50 blur-3xl" />
-        <div className="absolute -right-[10%] bottom-[-20%] h-[80vh] w-[80vh] rounded-full bg-ice/15 blur-3xl" />
-      </div>
-      <div data-reveal className="relative flex h-full flex-col items-center justify-center pt-16 text-center" data-parallax="-0.25">
-        <p className="reveal eyebrow text-ice is-delay" style={{ transitionDelay: "1000ms" }} data-reveal>Your everyday neighbourhood pharmacy</p>
-        <h1 className="display relative mt-6 text-[clamp(4rem,14vw,13rem)]">
-          <Line d={1150}>Care that</Line>
-          <span className="relative z-20 block"><Line d={1300}>feels closer.</Line></span>
-        </h1>
-        {/* Portrait overlapping the title */}
-        <div className="absolute left-1/2 top-[52%] z-10 w-[min(52vw,300px)] -translate-x-1/2 -translate-y-1/2 md:w-[min(26vw,380px)]">
-          <div data-reveal className="reveal overflow-hidden rounded-t-full rounded-b-[40px] shadow-[var(--shadow-float)]" style={{ transitionDelay: "1450ms", transitionDuration: "1.4s" }}>
-            <img src={images.hero} alt="Smiling woman in a softly lit portrait" width={900} height={1100} fetchPriority="high" className="aspect-[4/5] w-full object-cover" />
-          </div>
-        </div>
-        <img src={objects.jar} alt="" aria-hidden width={816} height={816} data-reveal style={{ ["--r" as string]: "-14deg", transitionDelay: "1650ms" }}
-          className="reveal floaty absolute left-[3%] top-[58%] z-20 w-[26vw] max-w-[260px] drop-shadow-[0_30px_30px_oklch(0.2_0.05_245/0.45)] md:left-[12%] md:top-[50%]" />
-        <img src={objects.pump} alt="" aria-hidden width={816} height={816} data-reveal style={{ ["--r" as string]: "12deg", transitionDelay: "1800ms", animationDelay: "-3s" }}
-          className="reveal floaty absolute right-[2%] top-[20%] z-0 w-[24vw] max-w-[240px] drop-shadow-[0_30px_30px_oklch(0.2_0.05_245/0.45)] md:right-[12%]" />
-        <p data-reveal className="reveal absolute bottom-[22vh] left-6 max-w-[16rem] text-left text-sm text-ice md:bottom-[32vh] md:left-14 md:text-base" style={{ transitionDelay: "1900ms" }}>
-          Everyday essentials, practical guidance, and a familiar place to turn.
-        </p>
-      </div>
-    </section>
-  );
-}
-
 function About() {
   const ref = useReveal<HTMLElement>();
   return (
-    <section ref={ref} className="relative overflow-hidden px-6 pb-24 pt-24 md:pb-40 md:pt-40" data-nav="light">
+    <section id="about" ref={ref} className="relative overflow-hidden px-6 pb-24 pt-24 md:pb-40 md:pt-40" data-nav="light">
       <div className="absolute -left-10 top-24 hidden w-[22vw] max-w-[320px] md:block" aria-hidden>
         <div data-reveal className="leaf" ><img src={images.aboutLeft} alt="" loading="lazy" className="aspect-[3/4] w-full object-cover" data-parallax="-0.08" /></div>
       </div>
@@ -154,14 +121,14 @@ function Lifestyle() {
   const ref = useReveal<HTMLElement>();
   return (
     <section ref={ref} data-nav="dark" className="relative mx-0 overflow-hidden text-paper">
-      <div className="relative min-h-[110svh] md:min-h-[120vh]">
+      <div className="relative flex min-h-[690px] flex-col justify-between md:min-h-[88svh]">
         <img src={images.lifestyle} alt="A family walking together at sunset" loading="lazy" data-parallax="0.12" data-scale="1"
           className="absolute inset-[-8%] h-[116%] w-[116%] object-cover" />
         <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-ink/45 via-transparent to-ink/50" />
-        <div className="relative px-6 pt-32 md:px-14 md:pt-44">
-          <h2 className="display max-w-[11ch] text-[clamp(3rem,8vw,7.5rem)]"><Line>For the whole</Line><Line d={120}>household.</Line></h2>
+        <div className="relative z-10 px-6 pt-28 md:px-14 md:pt-36">
+          <h2 className="display max-w-[11ch] text-[clamp(3rem,8vw,7.5rem)]"><Line>For the whole</Line><Line d={120}>household.</Line></h2><p className="relative z-10 mt-6 max-w-md text-lg leading-relaxed text-paper">Everyday essentials, a familiar place to ask, and support finding the right next step.</p>
         </div>
-        <div className="absolute inset-x-3 bottom-6 grid gap-3 md:inset-x-10 md:bottom-12 md:grid-cols-3 md:gap-5">
+        <div className="relative z-10 mx-3 mb-8 mt-16 grid gap-3 md:mx-10 md:mb-10 md:mt-20 md:grid-cols-3 md:gap-5">
           {infoCards.map((c, i) => {
             const I = iconMap[c.icon];
             return (
@@ -212,6 +179,7 @@ function Editorial() {
             <button type="button" onClick={() => go(1)} aria-label="Next message" className="group grid h-12 w-12 place-items-center rounded-full border border-ink/25 transition-colors hover:bg-ink hover:text-paper"><ArrowRight className="h-4 w-4" /></button>
             <span className="ml-3 text-sm tabular-nums text-muted-foreground">{String(i + 1).padStart(2, "0")} / {String(messages.length).padStart(2, "0")}</span>
           </div>
+          <Link to="/about" className="mt-8 inline-flex items-center gap-2 border-b-2 border-ink pb-1 text-base font-semibold text-ink">More about Kalahari Pharmacy <ArrowUpRight className="h-4 w-4" /></Link>
         </div>
       </div>
     </section>

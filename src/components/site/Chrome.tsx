@@ -30,10 +30,18 @@ const links = [
 
 export function Nav() {
   const [onDark, setOnDark] = useState(false);
+  const [introStage, setIntroStage] = useState(false);
   const [open, setOpen] = useState(false);
   const { items } = useEnquiry();
   const { items: basket } = useBasket();
   const path = useRouterState({ select: (s) => s.location.pathname });
+  useEffect(() => {
+    const update = () => setIntroStage(path === "/" && window.scrollY < window.innerHeight * 0.16);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => { window.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
+  }, [path]);
 
   useEffect(() => setOpen(false), [path]);
   useEffect(() => {
@@ -57,17 +65,17 @@ export function Nav() {
     return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); clearTimeout(t); };
   }, [path]);
 
-  const tone = onDark ? "text-paper" : "text-ink";
-  const pill = onDark ? "pill-glass text-paper hover:bg-paper/35" : "bg-ink/[0.06] text-ink hover:bg-ink/10 backdrop-blur-md";
+  const tone = "text-ink";
+  const pill = onDark ? "bg-ice text-ink hover:bg-ice/90" : "bg-ice text-ink hover:bg-ice/90";
 
   return (
-    <header className={`site-header fixed inset-x-3 top-3 z-50 md:inset-x-[4vw] md:top-[4vw] ${path === '/' ? 'home-header' : ''}`}>
+    <header className={`site-header ${introStage ? "intro-stage" : ""} fixed inset-x-3 top-3 z-50 md:inset-x-[4vw] md:top-[4vw] ${path === '/' ? 'home-header' : ''}`}>
       <nav aria-label="Main" className={`flex items-center justify-between gap-3 rounded-lg bg-paper px-4 py-3 text-ink ${tone}`}>
         <Link to="/" aria-label="Kalahari Pharmacy home" className="text-xl md:text-2xl">
           <Wordmark />
         </Link>
-        <ul className="hidden gap-1 min-[1300px]:flex">
-          {links.map((l) => (
+        <ul className="hidden gap-1 min-[1440px]:flex">
+          {!introStage && links.map((l) => (
             <li key={l.to}>
               <Link to={l.to} className="block px-2 py-3 text-sm font-medium text-ink hover:underline" activeProps={{ "aria-current": "page" }}>
                 {l.label}
@@ -85,7 +93,7 @@ export function Nav() {
               <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-sun px-1 text-xs font-semibold text-sun-foreground">{basket.length + items.length}</span>
             )}
           </Link>
-          <Sheet open={open} onOpenChange={setOpen}><SheetTrigger asChild><Button variant="ghost" size="icon" aria-label="Open menu" className="min-[1300px]:hidden"><Menu /></Button></SheetTrigger><SheetContent className="w-full max-w-md overflow-y-auto"><SheetTitle>Kalahari Pharmacy</SheetTitle><SheetDescription>Pages and enquiry lists</SheetDescription><nav aria-label="All pages" className="mt-6">{[...links, { to: '/enquiry', label: 'My enquiry list' }, { to: '/cart', label: 'Request basket' }].map((l) => <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="block py-3 text-xl font-medium">{l.label}</Link>)}</nav></SheetContent></Sheet>
+          <Sheet open={open} onOpenChange={setOpen}><SheetTrigger asChild><Button variant="ghost" size="icon" aria-label="Open menu" className={introStage ? "" : "min-[1440px]:hidden"}><Menu /></Button></SheetTrigger><SheetContent className="w-full max-w-md overflow-y-auto"><SheetTitle>Kalahari Pharmacy</SheetTitle><SheetDescription>Pages and enquiry lists</SheetDescription><nav aria-label="All pages" className="mt-6">{[...links, { to: '/enquiry', label: 'My enquiry list' }, { to: '/cart', label: 'Request basket' }].map((l) => <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="block py-3 text-xl font-medium">{l.label}</Link>)}</nav></SheetContent></Sheet>
         </div>
       </nav>
       {false && open && (
