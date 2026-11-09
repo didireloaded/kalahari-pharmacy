@@ -195,7 +195,13 @@
   .reveal { transition-duration: .5s, .55s; transform: translateY(20px); }
   .hero-person { filter: brightness(.8); }
   .hero-copy h1 { max-width: 11ch; }
-  .scroll-hero { min-height: 1050px; }
+  /* Let short phones complete the hero without a forced 1050px section. */
+  .scroll-hero { min-height: 0; }
+  .hero-copy { max-width: 100%; }
+  .hero-person { max-height: 48svh; }
+  .hero-object-left { left: -1%; bottom: 21%; }
+  .hero-object-right { right: -1%; top: 15%; }
+  .hero-copy h1 { overflow-wrap: normal; }
 }
 .information-page { padding: clamp(7.5rem, 11vw, 11rem) clamp(1.25rem, 4.5vw, 4.5rem) clamp(4rem, 7vw, 7rem); }
 .page-title { max-width: 13ch; font-size: clamp(3.1rem, 8vw, 7.5rem); overflow-wrap: break-word; }
@@ -217,8 +223,9 @@
 .faq-row summary { list-style-position: outside; }
 .faq-row[open] summary { color: var(--hero-deep); }
 @media (prefers-reduced-motion: reduce) {
-  .hero-intro { opacity: 0 !important; }
-  .hero-assembled { opacity: 1 !important; }
+  /* With reduced motion the scene changes instantly when scrolling, not on load. */
+  .hero-intro { opacity: var(--intro-visibility, 1) !important; }
+  .hero-assembled { opacity: var(--assembled-visibility, 0) !important; }
   .hero-person { transform: translate(-50%, -50%) scale(1) !important; }
   .hero-object { transform: none !important; }
   .hero-copy { transform: none !important; }

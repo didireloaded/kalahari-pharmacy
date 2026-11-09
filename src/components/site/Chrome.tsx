@@ -123,30 +123,29 @@ export function Shell({ children }: { children: ReactNode }) {
   useParallax();
   const path = useRouterState({ select: (s) => s.location.pathname });
   const [introScrolled, setIntroScrolled] = useState(false);
+  const [introSceneFinished, setIntroSceneFinished] = useState(false);
 
   useEffect(() => {
     if (path !== "/") return;
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const updateVisibility = () => {
-      setIntroScrolled(
-        window.scrollY > Math.max(48, window.innerHeight * 0.08) ||
-        prefersReducedMotion.matches,
-      );
+      setIntroScrolled(window.scrollY > Math.max(48, window.innerHeight * 0.08));
+      const hero = document.querySelector<HTMLElement>(".scroll-hero");
+      const endOfScene = hero ? hero.offsetHeight - window.innerHeight * 1.05 : window.innerHeight;
+      setIntroSceneFinished(window.scrollY > endOfScene);
     };
     updateVisibility();
     window.addEventListener("scroll", updateVisibility, { passive: true });
     window.addEventListener("resize", updateVisibility);
-    prefersReducedMotion.addEventListener("change", updateVisibility);
     return () => {
       window.removeEventListener("scroll", updateVisibility);
       window.removeEventListener("resize", updateVisibility);
-      prefersReducedMotion.removeEventListener("change", updateVisibility);
     };
   }, [path]);
 
   // The homepage opens as an uninterrupted photograph. Navigation and mobile
   // contact actions emerge on scroll; other pages have navigation immediately.
   const showChrome = path !== "/" || introScrolled;
+  const showMobileContact = path !== "/" || introSceneFinished;
 
   return (
     <div className="site-shell min-h-screen w-full min-w-0 overflow-x-clip bg-paper pb-24 md:pb-0">
@@ -156,7 +155,7 @@ export function Shell({ children }: { children: ReactNode }) {
         <main id="main">{children}</main>
         <Footer />
       </div>
-      <MobileContactBar visible={showChrome} />
+      <MobileContactBar visible={showMobileContact} />
     </div>
   );
 }
