@@ -56,6 +56,7 @@ export function ScrollHero() {
 
   return (
     <section ref={section} className="scroll-hero relative h-[190svh] md:h-[205svh]" data-nav="dark" aria-label="Kalahari Pharmacy introduction">
+      <h1 className="sr-only">Kalahari Pharmacy in Windhoek</h1>
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-hero">
         <div className="hero-intro absolute inset-0" aria-hidden="true">
           <img src={introAsset.url} alt="" width={1600} height={900} decoding="async" className="h-full w-full object-cover object-center" fetchPriority="high" />
@@ -72,9 +73,9 @@ export function ScrollHero() {
             className="hero-object hero-object-right pointer-events-none absolute right-[1%] top-[16%] z-20 w-[24vw] max-w-[230px] md:right-[11%] md:top-[21%]" />
           <div className="hero-copy relative z-30 w-full">
             <p className="mb-6 text-sm font-semibold tracking-wide text-paper md:text-base">Kalahari Pharmacy · Windhoek</p>
-            <h1 className="display mx-auto max-w-[13ch] text-[clamp(2.85rem,11vw,4.75rem)] leading-[0.94] md:text-[clamp(3.3rem,10vw,10rem)] md:leading-[0.9] text-paper [text-shadow:0_3px_18px_rgba(0,0,0,0.23)]">
+            <h2 className="display mx-auto max-w-[13ch] text-[clamp(2.6rem,10vw,4.75rem)] leading-[1.02] md:text-[clamp(3.3rem,10vw,10rem)] md:leading-[0.95] text-paper [text-shadow:0_3px_22px_rgba(0,0,0,0.55)]">
               Care that<br />feels closer.
-            </h1>
+            </h2>
           </div>
           <div className="hero-copy absolute bottom-[10%] z-30 flex w-full flex-col items-center gap-3 px-4 md:bottom-[11%] md:gap-4 md:px-5">
             <p className="max-w-md text-base leading-relaxed md:text-lg">Everyday essentials and a familiar place to ask.</p>
@@ -84,7 +85,7 @@ export function ScrollHero() {
             </div>
           </div>
         </div>
-
+        <a href="#quick-actions" className="hero-scroll-cue absolute bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-5 z-40 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/35 bg-ink/70 px-4 py-2 text-sm font-semibold text-paper shadow-sm backdrop-blur-sm transition-colors hover:bg-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper md:bottom-8 md:right-8">Skip intro <ArrowRight className="size-4 rotate-90" aria-hidden="true" /></a>
       </div>
     </section>
   );

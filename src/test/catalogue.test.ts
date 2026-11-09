@@ -40,3 +40,14 @@ describe("request basket", () => {
     expect(decodeURIComponent(href)).toContain("This is an enquiry, not a confirmed order.");
   });
 });
+
+describe("safe shareable enquiry text", () => {
+  it("keeps the catalogue illustrative and avoids payment or verified stock", async () => {
+    const { basketEnquiryText } = await import("@/lib/basket");
+    const text = basketEnquiryText([{slug:"plasters",quantity:2}]);
+    expect(text).toContain("2 × Adhesive plasters");
+    expect(text).toContain("not a confirmed order");
+    expect(text).not.toMatch(/checkout|credit card|in stock now/i);
+    expect(text).not.toContain("medical-aid number");
+  });
+});

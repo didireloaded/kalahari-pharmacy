@@ -16,10 +16,12 @@ export function updateQuantity(items: BasketItem[], slug: string, quantity: numb
   const others = items.filter((p) => p.slug !== slug);
   return quantity > 0 ? [...others, { slug, quantity }] : others;
 }
+export function basketEnquiryText(items: BasketItem[]): string {
+  const list = items.filter((p) => getProduct(p.slug)).map((p) => `${p.quantity} × ${getProduct(p.slug)?.name} — ask for price`).join("\n");
+  return `Hello Kalahari Pharmacy,\n\nI would like to enquire about these illustrative items:\n${list}\n\nPlease confirm actual product names, availability, pricing and any collection or delivery options. This is an enquiry, not a confirmed order.\n\nThank you.`;
+}
 export function orderMailto(items: BasketItem[]) {
-  const list = items.map((p) => `${p.quantity} × ${getProduct(p.slug)?.name ?? p.slug} — ask for price`).join("\n");
-  const body = `Hello Kalahari Pharmacy,\n\nI would like to request an order for these illustrative items:\n${list}\n\nPlease confirm whether you carry these items, the actual products and prices, and collection or delivery options before any purchase. This is an enquiry, not a confirmed order.\n\nThank you.`;
-  return `mailto:${business.email}?subject=${encodeURIComponent("Order request — availability and pricing enquiry")}&body=${encodeURIComponent(body)}`;
+  return `mailto:${business.email}?subject=${encodeURIComponent("Product enquiry — confirm availability and pricing")}&body=${encodeURIComponent(basketEnquiryText(items))}`;
 }
 type Basket = { items: BasketItem[]; add: (slug: string) => void; setQuantity: (slug: string, n: number) => void; clear: () => void; storageError: boolean };
 const Context = createContext<Basket | null>(null);

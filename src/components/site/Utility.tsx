@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Clock3, MapPin, Phone } from "lucide-react";
+import { ArrowUpRight, Clock3, ClipboardList, HeartPulse, MapPin, Phone, ShieldCheck, Truck } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getWindhoekStatus, type OpeningStatus } from "@/lib/hours";
 import { business } from "@/content/site";
@@ -14,7 +14,7 @@ export function VisitUtilityStrip() {
   }, []);
 
   return (
-    <section aria-label="Quick pharmacy information" className="relative z-10 w-full border-b border-border bg-paper px-5 py-6 sm:px-8 md:px-14 md:py-8">
+    <section id="quick-actions" tabIndex={-1} aria-label="Quick pharmacy information" className="relative z-10 w-full scroll-mt-20 border-b border-border bg-paper px-5 py-6 sm:px-8 md:px-14 md:py-8">
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:items-center md:gap-8">
         <a href={business.phoneHref}
           className="flex min-h-14 min-w-0 items-center justify-center gap-2 rounded-xl bg-ink px-3 py-3 text-center text-paper md:justify-start md:rounded-none md:bg-transparent md:px-0 md:text-left md:text-ink">
@@ -42,6 +42,36 @@ export function VisitUtilityStrip() {
           </div>
         </div>
       </div>
+    </section>
+  );
+}
+
+
+const patientLinks = [
+  { to: "/prescriptions", title: "Prescriptions", subtitle: "Ask how to prepare before visiting", icon: ClipboardList },
+  { to: "/medical-aid", title: "Medical aid", subtitle: "Check claims and co-payment questions", icon: ShieldCheck },
+  { to: "/clinic", title: "Screening enquiries", subtitle: "Ask which services are available", icon: HeartPulse },
+  { to: "/travel", title: "Safari first aid", subtitle: "Make a non-medicinal kit checklist", icon: Truck },
+] as const;
+
+/** Patient utility, immediately after the image-led hero and primary contact strip. */
+export function PatientQuickLinks() {
+  return (
+    <section aria-labelledby="patient-links" data-nav="light" className="border-b border-border bg-paper px-5 py-10 sm:px-8 md:px-14 md:py-14">
+      <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
+        <div><p className="text-sm font-semibold text-hero-deep">Here for something specific?</p>
+        <h2 id="patient-links" className="display mt-2 text-[clamp(2rem,5vw,3.5rem)] leading-tight text-ink">Start with what you need.</h2></div>
+        <Link to="/services" className="inline-flex items-center gap-2 text-sm font-semibold text-ink underline underline-offset-4">All enquiries <ArrowUpRight className="size-4" /></Link>
+      </div>
+      <div className="grid border-t border-border sm:grid-cols-2 lg:grid-cols-4">
+        {patientLinks.map(({ to, title, subtitle, icon: Icon }, i) => (
+          <Link key={to} to={to} className={`group flex min-h-36 flex-col justify-between gap-5 border-b border-border px-3 py-6 transition-colors hover:bg-ice focus-visible:bg-ice sm:px-5 lg:border-r lg:last:border-r-0 ${i % 2 === 0 ? "sm:border-r" : ""}`}>
+            <div className="flex items-center justify-between gap-3"><Icon className="size-6 text-hero-deep" aria-hidden="true" /><ArrowUpRight className="size-5 text-muted-foreground transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" aria-hidden="true" /></div>
+            <div><h3 className="text-lg font-semibold text-ink">{title}</h3><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{subtitle}</p></div>
+          </Link>
+        ))}
+      </div>
+      <p className="mt-5 max-w-3xl text-sm text-muted-foreground">Information and enquiry topics only. Service availability, opening hours, stock and medical-aid participation must be confirmed directly with Kalahari Pharmacy.</p>
     </section>
   );
 }
