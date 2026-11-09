@@ -1,12 +1,11 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ShoppingBag, Menu, Instagram } from "lucide-react";
+import { ShoppingBag, Menu, Instagram, Phone, MapPin } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { useEnquiry } from "@/lib/enquiry";
 import { business } from "@/content/site";
 import { useBasket } from "@/lib/basket";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetDescription } from "@/components/ui/sheet";
-import { MobileContactBar } from "@/components/site/Utility";
 
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
@@ -57,7 +56,11 @@ export function Nav({ visible }: { visible: boolean }) {
             </li>
           ))}
         </ul>
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+          <a href={business.phoneHref} aria-label="Call Kalahari Pharmacy"
+            className="hidden size-11 shrink-0 place-items-center rounded-full bg-ice text-ink min-[360px]:grid min-[1280px]:hidden">
+            <Phone className="size-5" aria-hidden="true" />
+          </a>
           <a href={business.instagram} target="_blank" rel="noreferrer" aria-label="Kalahari Pharmacy on Instagram" className={`hidden h-10 w-10 place-items-center rounded-full transition-colors duration-500 sm:grid ${pill}`}>
             <Instagram className="h-4 w-4" />
           </a>
@@ -97,7 +100,10 @@ export function Nav({ visible }: { visible: boolean }) {
                       className="flex min-h-12 items-center rounded-xl px-3 text-sm font-medium text-ink hover:bg-ice">My enquiry list</Link>
                   </div>
                 </div>
-                <a href={business.phoneHref} className="flex min-h-12 items-center justify-center rounded-full bg-ink px-6 py-3 text-base font-semibold text-paper">Call {business.phoneDisplay}</a>
+                <div className="grid grid-cols-2 gap-3">
+                  <a href={business.phoneHref} className="flex min-h-12 items-center justify-center gap-2 rounded-full bg-ink px-4 py-3 text-sm font-semibold text-paper"><Phone className="size-4" aria-hidden="true" />Call</a>
+                  <a href={business.mapsUrl} target="_blank" rel="noopener noreferrer" className="flex min-h-12 items-center justify-center gap-2 rounded-full border border-ink px-4 py-3 text-sm font-semibold text-ink"><MapPin className="size-4" aria-hidden="true" />Directions</a>
+                </div>
               </nav>
             </SheetContent>
           </Sheet>
@@ -154,15 +160,11 @@ export function Footer() {
 export function Shell({ children }: { children: ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const [introScrolled, setIntroScrolled] = useState(false);
-  const [introSceneFinished, setIntroSceneFinished] = useState(false);
 
   useEffect(() => {
     if (path !== "/") return;
     const updateVisibility = () => {
       setIntroScrolled(window.scrollY > Math.max(48, window.innerHeight * 0.08));
-      const hero = document.querySelector<HTMLElement>(".scroll-hero");
-      const endOfScene = hero ? hero.offsetHeight - window.innerHeight * 1.05 : window.innerHeight;
-      setIntroSceneFinished(window.scrollY > endOfScene);
     };
     updateVisibility();
     window.addEventListener("scroll", updateVisibility, { passive: true });
@@ -173,20 +175,17 @@ export function Shell({ children }: { children: ReactNode }) {
     };
   }, [path]);
 
-  // The homepage opens as an uninterrupted photograph. Navigation and mobile
-  // contact actions emerge on scroll; other pages have navigation immediately.
+  // Keep the image-first home intro. Contact actions live in the menu and content.
   const showChrome = path !== "/" || introScrolled;
-  const showMobileContact = path !== "/" || introSceneFinished;
 
   return (
-    <div className="site-shell min-h-screen w-full min-w-0 overflow-x-clip bg-paper pb-24 md:pb-0">
+    <div className="site-shell min-h-screen w-full min-w-0 overflow-x-clip bg-paper">
       <a href={path === "/" ? "#about" : "#main"} className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-paper focus:px-4 focus:py-2">Skip to content</a>
       <Nav visible={showChrome} />
       <div className="relative w-full min-w-0 overflow-clip bg-paper">
         <main id="main">{children}</main>
         <Footer />
       </div>
-      <MobileContactBar visible={showMobileContact} />
     </div>
   );
 }
