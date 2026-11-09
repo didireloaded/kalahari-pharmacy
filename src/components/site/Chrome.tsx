@@ -137,10 +137,10 @@ export function Loader() {
 
 export function Footer() {
   return (
-    <footer className="px-6 pb-10 pt-20 md:px-14">
+    <footer className="px-5 pb-[max(2rem,env(safe-area-inset-bottom))] pt-14 sm:px-8 md:px-14 md:pt-20">
       <div className="flex flex-col gap-10 border-t border-border pt-10 md:flex-row md:items-end md:justify-between">
         <div>
-          <Wordmark className="text-4xl md:text-6xl" />
+          <Wordmark className="block text-[clamp(1.75rem,7.4vw,2.4rem)] md:text-6xl" />
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">
             Information on this site is general and not medical advice. Please speak to a pharmacist or doctor about your health.
           </p>

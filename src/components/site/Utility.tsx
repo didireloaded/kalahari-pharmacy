@@ -3,25 +3,45 @@ import { Clock3, MapPin, Phone } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getWindhoekStatus, type OpeningStatus } from "@/lib/hours";
 import { business } from "@/content/site";
+
 export function VisitUtilityStrip() {
-  const [status, setStatus] = useState<OpeningStatus>({state:"unknown",text:"Opening hours not confirmed"});
+  const [status, setStatus] = useState<OpeningStatus>({ state: "unknown", text: "Opening hours not confirmed" });
   useEffect(() => {
     const update = () => setStatus(getWindhoekStatus(new Date(), business.openingHours));
     update();
     const interval = window.setInterval(update, 60_000);
     return () => window.clearInterval(interval);
   }, []);
-  return <section aria-label="Quick pharmacy information" className="relative z-10 border-b border-border bg-paper px-6 py-6 md:px-14">
-    <div className="grid gap-5 md:grid-cols-3">
-      <a href={business.phoneHref} className="flex items-center gap-4 py-2"><Phone className="size-5 text-hero-deep"/><span><strong className="block">Call the pharmacy</strong><span className="text-sm">{business.phoneDisplay}</span></span></a>
-      <a href={business.mapsUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 py-2"><MapPin className="size-5 text-hero-deep"/><span><strong className="block">Directions</strong><span className="text-sm">Gustav Voigts Centre, Windhoek</span></span></a>
-      <div className="flex items-center gap-4 py-2"><Clock3 className="size-5 text-hero-deep"/><span><strong className={"block "+(status.state==="open"?"text-emerald-700":"text-ink")} role="status">{status.text}</strong><Link to="/visit" className="text-sm underline underline-offset-4">Confirm hours and visit details</Link></span></div>
-    </div>
-  </section>;
-}
-export function MobileContactBar({ visible = true }: { visible?: boolean }) {
-  return <aside inert={!visible} aria-hidden={!visible} aria-label="Quick pharmacy actions" className={`mobile-contact-bar fixed inset-x-0 bottom-0 z-[60] flex gap-3 border-t border-border bg-paper p-3 pb-[max(.75rem,env(safe-area-inset-bottom))] shadow-lg transition-opacity duration-300 md:hidden ${visible ? "opacity-100" : "pointer-events-none opacity-0"}`}>
-    <a href={business.phoneHref} className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-ink px-4 py-3 font-semibold text-paper"><Phone className="size-4"/>Call</a>
-    <a href={business.mapsUrl} target="_blank" rel="noopener noreferrer" className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full border border-ink px-4 py-3 font-semibold text-ink"><MapPin className="size-4"/>Directions</a>
-  </aside>;
+
+  return (
+    <section aria-label="Quick pharmacy information" className="relative z-10 w-full border-b border-border bg-paper px-5 py-6 sm:px-8 md:px-14 md:py-8">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:items-center md:gap-8">
+        <a href={business.phoneHref}
+          className="flex min-h-14 min-w-0 items-center justify-center gap-2 rounded-xl bg-ink px-3 py-3 text-center text-paper md:justify-start md:rounded-none md:bg-transparent md:px-0 md:text-left md:text-ink">
+          <Phone className="size-5 shrink-0 text-paper md:text-hero-deep" aria-hidden="true" />
+          <span className="min-w-0 text-sm font-semibold sm:text-base">
+            Call pharmacy
+            <span className="mt-1 hidden text-sm font-normal text-muted-foreground md:block">{business.phoneDisplay}</span>
+          </span>
+        </a>
+        <a href={business.mapsUrl} target="_blank" rel="noopener noreferrer"
+          className="flex min-h-14 min-w-0 items-center justify-center gap-2 rounded-xl border border-ink bg-paper px-3 py-3 text-center text-ink md:justify-start md:border-0 md:px-0 md:text-left">
+          <MapPin className="size-5 shrink-0 text-hero-deep" aria-hidden="true" />
+          <span className="min-w-0 text-sm font-semibold sm:text-base">
+            Directions
+            <span className="mt-1 hidden text-sm font-normal text-muted-foreground md:block">Gustav Voigts Centre, Windhoek</span>
+          </span>
+        </a>
+        <div className="col-span-2 flex min-w-0 items-center gap-3 border-t border-border pt-5 md:col-span-1 md:border-0 md:pt-0">
+          <Clock3 className="size-5 shrink-0 text-hero-deep" aria-hidden="true" />
+          <div className="min-w-0">
+            <strong className="block text-sm font-semibold text-ink sm:text-base" role="status">{status.text}</strong>
+            <Link to="/visit" className="mt-1 inline-block text-sm text-muted-foreground underline underline-offset-4">
+              Confirm hours before visiting
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }

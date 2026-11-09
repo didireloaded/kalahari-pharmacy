@@ -177,9 +177,9 @@ function Editorial() {
   const go = (d: number) => { setDir(d); setI((p) => (p + d + messages.length) % messages.length); };
   const m = messages[i] ?? messages[0]!;
   return (
-    <section ref={ref} data-nav="light" className="px-6 py-24 md:px-14 md:py-36" aria-roledescription="carousel" aria-label="Why care matters">
+    <section ref={ref} data-nav="light" className="px-5 py-16 sm:px-8 md:px-14 md:py-28" aria-roledescription="carousel" aria-label="Why care matters">
       <h2 className="display mx-auto max-w-5xl text-center text-[clamp(2.75rem,7vw,6.5rem)]"><Line>Why everyday</Line><Line d={100}>care matters.</Line></h2>
-      <div className="mt-16 grid items-center gap-12 md:mt-24 md:grid-cols-[minmax(0,320px)_1fr] md:gap-20">
+      <div className="mt-10 grid min-w-0 items-center gap-8 sm:mt-14 md:mt-20 md:grid-cols-[minmax(0,320px)_minmax(0,1fr)] md:gap-16">
         <div className="relative mx-auto h-[300px] w-[260px] md:h-[380px] md:w-[300px]" aria-hidden>
           <div className="absolute left-0 top-6 h-28 w-28 rounded-2xl bg-tangerine" />
           <div className="absolute bottom-0 right-2 h-32 w-32 rounded-2xl bg-ice" />

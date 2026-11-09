@@ -233,4 +233,4 @@
   .site-header { transition: none !important; }
 }
 
-@media print { .site-header, .mobile-contact-bar, button, .hero-scroll-cue { display:none !important; } .information-page { padding:1rem !important; } body { background:#fff !important; } .scroll-hero { display:none !important; } }
+@media print { .site-header, button, .hero-scroll-cue { display:none !important; } .information-page { padding:1rem !important; } body { background:#fff !important; } .scroll-hero { display:none !important; } }
