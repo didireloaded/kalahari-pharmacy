@@ -27,6 +27,20 @@ function Enquiry() {
   const [name, setName] = useState("");
   const [note, setNote] = useState("");
   const [copyStatus, setCopyStatus] = useState("");
+  const shareList = async () => {
+    const text = enquiryPrintText(items);
+    try {
+      if (typeof navigator.share === "function") {
+        await navigator.share({ title: "Kalahari Pharmacy category enquiry", text });
+        setCopyStatus("Please confirm delivery in the selected app. This website has not placed an order.");
+      } else if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+        setCopyStatus("Category list copied. Paste it into WhatsApp or your preferred app; nothing has been sent.");
+      } else setCopyStatus("Sharing unavailable here. Try Print / Save PDF.");
+    } catch (error) {
+      setCopyStatus(error instanceof Error && error.name === "AbortError" ? "Share cancelled." : "Could not share. Try Print / Save PDF.");
+    }
+  };
   const copyList = async () => {
     try { await navigator.clipboard.writeText(enquiryPrintText(items)); setCopyStatus("List copied. No enquiry has been sent."); }
     catch { setCopyStatus("Could not copy the list. Use Print / Save PDF instead."); }
@@ -53,7 +67,7 @@ function Enquiry() {
                 </li>
               );
             })}
-            <li className="flex flex-wrap gap-3"><button type="button" onClick={copyList} className="text-sm underline underline-offset-4">Copy list</button><button type="button" onClick={() => window.print()} className="text-sm underline underline-offset-4">Print / Save PDF</button></li>
+            <li className="flex flex-wrap gap-3"><button type="button" onClick={shareList} className="text-sm underline underline-offset-4">Share list</button><button type="button" onClick={copyList} className="text-sm underline underline-offset-4">Copy list</button><button type="button" onClick={() => window.print()} className="text-sm underline underline-offset-4">Print / Save PDF</button></li>
             <li role="status" aria-live="polite" className="text-sm text-muted-foreground">{copyStatus}</li>
             <li><button type="button" onClick={clear} className="text-sm text-muted-foreground underline underline-offset-4">Clear list</button></li>
           </ul>

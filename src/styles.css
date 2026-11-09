@@ -194,14 +194,14 @@
   /* Keep the scene legible and avoid expensive parallax on smaller devices. */
   .reveal { transition-duration: .5s, .55s; transform: translateY(20px); }
   .hero-person { filter: brightness(.8); }
-  .hero-copy h1 { max-width: 11ch; }
+  .hero-copy h2 { max-width: 11ch; }
   /* Let short phones complete the hero without a forced 1050px section. */
   .scroll-hero { min-height: 0; }
   .hero-copy { max-width: 100%; }
   .hero-person { max-height: 48svh; }
   .hero-object-left { left: -1%; bottom: 21%; }
   .hero-object-right { right: -1%; top: 15%; }
-  .hero-copy h1 { overflow-wrap: normal; }
+  .hero-copy h2 { overflow-wrap: normal; }
 }
 .information-page { padding: clamp(7.5rem, 11vw, 11rem) clamp(1.25rem, 4.5vw, 4.5rem) clamp(4rem, 7vw, 7rem); }
 .page-title { max-width: 13ch; font-size: clamp(3.1rem, 8vw, 7.5rem); overflow-wrap: break-word; }
@@ -229,7 +229,7 @@
   .hero-person { transform: translate(-50%, -50%) scale(1) !important; }
   .hero-object { transform: none !important; }
   .hero-copy { transform: none !important; }
-  .hero-scroll-cue { display: none !important; }
+  /* The skip intro link stays usable for keyboard and reduced-motion visitors. */
   .site-header { transition: none !important; }
 }
 

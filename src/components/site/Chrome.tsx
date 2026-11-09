@@ -44,7 +44,7 @@ export function Nav({ visible }: { visible: boolean }) {
   return (
     <header inert={!visible} aria-hidden={!visible} className={`site-header fixed inset-x-0 top-0 z-[80] w-full border-b border-border bg-paper shadow-[0_6px_24px_rgba(0,0,0,0.08)] transition-[opacity,transform] duration-300 ease-out ${visible ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-full opacity-0"}`}>
       <nav aria-label="Main" className="mx-auto flex min-h-16 w-full max-w-[1700px] items-center justify-between gap-2 bg-paper px-3 py-2 text-ink sm:px-4 md:gap-3 md:px-[4vw]">
-        <Link to="/" aria-label="Kalahari Pharmacy home" className="min-w-0 whitespace-nowrap text-[clamp(0.98rem,4.6vw,1.35rem)] sm:text-xl md:text-2xl">
+        <Link to="/" aria-label="Kalahari Pharmacy home" className="min-w-0 whitespace-nowrap text-[clamp(0.86rem,4vw,1.35rem)] sm:text-xl md:text-2xl">
           <Wordmark />
         </Link>
         <ul className="hidden gap-1 min-[1280px]:flex">
@@ -58,9 +58,10 @@ export function Nav({ visible }: { visible: boolean }) {
         </ul>
         <div className="flex shrink-0 items-center gap-1 sm:gap-2">
           <a href={business.phoneHref} aria-label="Call Kalahari Pharmacy"
-            className="hidden size-11 shrink-0 place-items-center rounded-full bg-ice text-ink min-[360px]:grid min-[1280px]:hidden">
+            className="grid size-11 shrink-0 place-items-center rounded-full bg-ice text-ink min-[1280px]:hidden">
             <Phone className="size-5" aria-hidden="true" />
           </a>
+          <a href={business.phoneHref} className="hidden min-h-11 items-center gap-2 rounded-full bg-ink px-5 text-sm font-semibold text-paper min-[1280px]:inline-flex"><Phone className="size-4" aria-hidden="true" />Call</a>
           <a href={business.instagram} target="_blank" rel="noreferrer" aria-label="Kalahari Pharmacy on Instagram" className={`hidden h-10 w-10 place-items-center rounded-full transition-colors duration-500 sm:grid ${pill}`}>
             <Instagram className="h-4 w-4" />
           </a>
