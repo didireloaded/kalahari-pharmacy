@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { filterProducts, products } from "@/content/products";
+import { filterProducts, getProduct, products } from "@/content/products";
 import { normalizeBasket, orderMailto, updateQuantity } from "@/lib/basket";
 
 describe("illustrative store data", () => {
@@ -7,6 +7,14 @@ describe("illustrative store data", () => {
     expect(products.length).toBeGreaterThanOrEqual(12);
     expect(products.every((p) => p.illustrative && !p.medicinal && p.priceStatus === "Ask for price")).toBe(true);
     expect(new Set(products.map((p) => p.slug)).size).toBe(products.length);
+  });
+  it("resolves safe product detail pages and does not represent a sale", () => {
+    const detail = getProduct("plasters");
+    expect(detail?.name).toBe("Adhesive plasters");
+    expect(detail?.priceStatus).toBe("Ask for price");
+    expect(detail?.illustrative).toBe(true);
+    expect(detail?.medicinal).toBe(false);
+    expect(getProduct("not-stocked")).toBeUndefined();
   });
   it("filters and sorts by name and category", () => {
     expect(filterProducts("gauze", "", "featured").length).toBe(2);
