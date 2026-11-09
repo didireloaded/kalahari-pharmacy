@@ -177,10 +177,12 @@
 }
 
 /* Kalahari editorial v2. Keep the established palette from the first build. */
-.site-header { transition: max-width .65s cubic-bezier(.16,1,.3,1), left .65s cubic-bezier(.16,1,.3,1), right .65s cubic-bezier(.16,1,.3,1); margin-inline: auto; }
-@media (min-width: 768px) {
-  .site-header.intro-stage { left: auto; right: 4vw; max-width: 19rem; }
-  .site-header.intro-stage nav { background: rgb(255 255 255 / 92%); box-shadow: 0 10px 40px rgb(0 0 0 / 8%); }
+/* Navigation remains stationary as the page scrolls. Only link backgrounds change on hover. */
+.site-header { margin-inline: auto; }
+.site-header .nav-link { text-decoration: none; }
+.site-header .nav-link:is(:hover, :focus-visible, [aria-current="page"]) {
+  background-color: var(--ice);
+  text-decoration: none;
 }
 .hero-intro { opacity: var(--intro-visibility, 1); will-change: opacity; }
 .hero-assembled { opacity: var(--assembled-visibility, 0); }

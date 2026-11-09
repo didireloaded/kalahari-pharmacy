@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ShoppingBag, Menu, X, Instagram } from "lucide-react";
+import { ShoppingBag, Menu, Instagram } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { useEnquiry } from "@/lib/enquiry";
 import { business } from "@/content/site";
@@ -36,55 +36,23 @@ const extraLinks = [
 ] as const;
 
 export function Nav() {
-  const [onDark, setOnDark] = useState(false);
-  const [introStage, setIntroStage] = useState(false);
   const [open, setOpen] = useState(false);
   const { items } = useEnquiry();
   const { items: basket } = useBasket();
   const path = useRouterState({ select: (s) => s.location.pathname });
-  useEffect(() => {
-    const update = () => setIntroStage(path === "/" && window.scrollY < window.innerHeight * 0.16);
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => { window.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
-  }, [path]);
-
   useEffect(() => setOpen(false), [path]);
-  useEffect(() => {
-    let raf = 0;
-    const check = () => {
-      raf = 0;
-      const y = 56;
-      const secs = document.querySelectorAll<HTMLElement>("[data-nav]");
-      let dark = false;
-      secs.forEach((s) => {
-        const r = s.getBoundingClientRect();
-        if (r.top <= y && r.bottom >= y) dark = s.dataset['nav'] === "dark";
-      });
-      setOnDark(dark);
-    };
-    const on = () => { if (!raf) raf = requestAnimationFrame(check); };
-    check();
-    window.addEventListener("scroll", on, { passive: true });
-    window.addEventListener("resize", on);
-    const t = setTimeout(check, 100);
-    return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); clearTimeout(t); };
-  }, [path]);
-
-  const tone = "text-ink";
-  const pill = onDark ? "bg-ice text-ink hover:bg-ice/90" : "bg-ice text-ink hover:bg-ice/90";
+  const pill = "bg-ice text-ink hover:bg-ice/90";
 
   return (
-    <header className={`site-header ${introStage ? "intro-stage" : ""} fixed inset-x-3 top-3 z-50 md:inset-x-[4vw] md:top-[4vw] ${path === '/' ? 'home-header' : ''}`}>
-      <nav aria-label="Main" className={`flex items-center justify-between gap-3 rounded-lg bg-paper px-4 py-3 text-ink ${tone}`}>
+    <header className="site-header fixed inset-x-3 top-3 z-50 md:inset-x-[4vw] md:top-4">
+      <nav aria-label="Main" className="flex items-center justify-between gap-3 rounded-lg bg-paper px-4 py-3 text-ink shadow-[0_10px_28px_rgba(0,0,0,0.08)]">
         <Link to="/" aria-label="Kalahari Pharmacy home" className="text-xl md:text-2xl">
           <Wordmark />
         </Link>
         <ul className="hidden gap-1 min-[1440px]:flex">
-          {!introStage && links.map((l) => (
+          {links.map((l) => (
             <li key={l.to}>
-              <Link to={l.to} className="block px-2 py-3 text-sm font-medium text-ink hover:underline" activeProps={{ "aria-current": "page" }}>
+              <Link to={l.to} className="nav-link block rounded-lg px-3 py-3 text-sm font-medium text-ink transition-colors duration-150" activeProps={{ "aria-current": "page" }}>
                 {l.label}
               </Link>
             </li>
@@ -100,20 +68,10 @@ export function Nav() {
               <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-sun px-1 text-xs font-semibold text-sun-foreground">{basket.length + items.length}</span>
             )}
           </Link>
-          <Sheet open={open} onOpenChange={setOpen}><SheetTrigger asChild><Button variant="ghost" size="icon" aria-label="Open menu" className={introStage ? "" : "min-[1440px]:hidden"}><Menu /></Button></SheetTrigger><SheetContent className="w-full max-w-md overflow-y-auto"><SheetTitle>Kalahari Pharmacy</SheetTitle><SheetDescription>Pages and enquiry lists</SheetDescription><nav aria-label="All pages" className="mt-6">{[...links, ...extraLinks, { to: '/enquiry', label: 'My enquiry list' }, { to: '/cart', label: 'Request basket' }].map((l) => <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="block py-3 text-xl font-medium">{l.label}</Link>)}</nav></SheetContent></Sheet>
+          <Sheet open={open} onOpenChange={setOpen}><SheetTrigger asChild><Button variant="ghost" size="icon" aria-label="Open menu" className="min-[1440px]:hidden"><Menu /></Button></SheetTrigger><SheetContent className="w-full max-w-md overflow-y-auto"><SheetTitle>Kalahari Pharmacy</SheetTitle><SheetDescription>Pages and enquiry lists</SheetDescription><nav aria-label="All pages" className="mt-6">{[...links, ...extraLinks, { to: '/enquiry', label: 'My enquiry list' }, { to: '/cart', label: 'Request basket' }].map((l) => <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="block py-3 text-xl font-medium">{l.label}</Link>)}</nav></SheetContent></Sheet>
         </div>
       </nav>
-      {false && open && (
-        <div id="mobile-menu" className="mx-2 rounded-3xl bg-paper p-6 text-ink shadow-[var(--shadow-card)] animate-in fade-in slide-in-from-top-2 md:hidden">
-          <ul className="space-y-1">
-            {[{ to: "/", label: "Home" }, ...links, { to: "/enquiry", label: "My enquiry list" }].map((l) => (
-              <li key={l.to}>
-                <Link to={l.to} className="display block py-2 text-4xl">{l.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+
     </header>
   );
 }
@@ -156,7 +114,7 @@ export function Footer() {
         </div>
       </div>
       <p className="mt-10 text-xs text-muted-foreground">© {new Date().getFullYear()} Kalahari Pharmacy, Windhoek.</p>
-      <div className="mt-8 flex flex-wrap gap-x-6 gap-y-4 text-base">{[...links, ...extraLinks, {to:'/privacy',label:'Privacy'}, {to:'/terms',label:'Terms'}, {to:'/accessibility',label:'Accessibility'}, {to:'/enquiry',label:'Enquiry list'}].map((l) => <Link key={l.to} to={l.to} className="underline underline-offset-4">{l.label}</Link>)}</div>
+      <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs text-muted-foreground" aria-label="Website policies"><Link to="/privacy" className="hover:text-ink">Privacy</Link><Link to="/terms" className="hover:text-ink">Terms</Link><Link to="/accessibility" className="hover:text-ink">Accessibility</Link></div>
     </footer>
   );
 }
