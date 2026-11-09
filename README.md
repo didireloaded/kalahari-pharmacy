@@ -2,13 +2,13 @@
 
 Editorial pharmacy website and an illustrative everyday-care catalogue for Kalahari Pharmacy in Windhoek, Namibia.
 
-Built with **TanStack Start**, React 19, TypeScript, Vite, Tailwind CSS, TanStack Router, Radix/shadcn UI. Lovable project is connected to GitHub \`main\`.
+Built with **TanStack Start**, React 19, TypeScript, Vite, Tailwind CSS, TanStack Router, Radix/shadcn UI. Lovable project is connected to GitHub `main`.
 
 ## Local development
 
-- Install Bun, then run \`bun install\`
-- Run \`bun run dev\`
-- Verify with \`bun run build\`, \`bun run test\` and \`bun run lint\`
+- Install Bun, then run `bun install`
+- Run `bun run dev`
+- Verify with `bun run build`, `bun run test` and `bun run lint`
 
 ## Website structure
 
@@ -33,7 +33,7 @@ Before enabling live commerce, the pharmacy must supply approved products, price
 
 ## Design direction
 
-See \`docs/KALAHARI_WEBSITE_DESIGN_DIRECTION.md\` and the reusable skill \`.agents/skills/website-design-craft/SKILL.md\`. Maintain the existing powder blue, steel blue, yellow and wine palette, visual-led sections and restrained motion. Initial hero is a plain lifestyle photograph; native scroll assembles the blue headline/portrait/objects and expands navigation. Respect reduced-motion.
+See `docs/KALAHARI_WEBSITE_DESIGN_DIRECTION.md` and the reusable skill `.agents/skills/website-design-craft/SKILL.md`. Maintain the existing powder blue, steel blue, yellow and wine palette, visual-led sections and restrained motion. Initial hero is a plain lifestyle photograph; native scroll assembles the blue headline/portrait/objects and expands navigation. Respect reduced-motion.
 
 ## Status and QA
 

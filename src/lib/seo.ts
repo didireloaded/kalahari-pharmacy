@@ -1,6 +1,7 @@
-const origin = "https://kalahari-care-corner.lovable.app";
+// Public canonical URLs are intentionally omitted until the pharmacy confirms its production domain.
 export function pageHead(path: string, title: string, description: string) {
-  const fullTitle = `${title} — Kalahari Pharmacy`;
+  void path;
+  const fullTitle = title + " — Kalahari Pharmacy";
   return {
     meta: [
       { title: fullTitle },
@@ -8,9 +9,7 @@ export function pageHead(path: string, title: string, description: string) {
       { property: "og:title", content: fullTitle },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: `${origin}${path}` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: `${origin}${path}` }],
   };
 }
