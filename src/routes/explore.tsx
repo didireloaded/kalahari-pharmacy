@@ -1,7 +1,7 @@
 import { createFileRoute, Link, Outlet, useMatch } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowUpRight, Search } from "lucide-react";
-import { categories } from "@/content/site";
+import { categories, imageSrcSet } from "@/content/site";
 import { useReveal } from "@/lib/motion";
 import { EnquireButton, toneClass } from "@/components/site/CategoryDetail";
 
@@ -48,7 +48,7 @@ function Explore() {
           <li key={c.slug} data-reveal style={{ transitionDelay: `${i * 90}ms` }} className="reveal is-in">
             <article className={`group flex h-full flex-col overflow-hidden rounded-[28px] ${toneClass[c.tone]}`}>
               <Link to="/explore/$slug" params={{ slug: c.slug }} className="block overflow-hidden">
-                <img src={c.image} alt={`${c.name} category`} loading="lazy" className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src={c.image} srcSet={imageSrcSet(c.image, [360, 640, 900])} sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw" alt={`${c.name} category`} loading="lazy" decoding="async" width={1000} height={750} className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
               </Link>
               <div className="flex flex-1 flex-col p-6">
                 <h2 className="display text-4xl">

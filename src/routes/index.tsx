@@ -73,7 +73,7 @@ function About() {
 function ProductPanel({ cat, onOpen, delay, idx }: { cat: Category; onOpen: (c: Category) => void; delay: number; idx: number }) {
   const productImage = useRef<HTMLImageElement>(null);
   const move = (e: PointerEvent<HTMLElement>) => {
-    if (e.pointerType !== "mouse" || !productImage.current) return;
+    if (e.pointerType !== "mouse" || !productImage.current || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;

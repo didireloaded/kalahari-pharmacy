@@ -32,7 +32,7 @@ function TravelKit(){
         <fieldset className="mt-10"><legend className="mb-4 text-xl font-semibold">Choose example essentials</legend>
           <div className="divide-y divide-border border-y border-border">{choices.map(slug=>{const p=getProduct(slug);if(!p)return null;return <label key={slug} className="flex cursor-pointer items-center gap-4 py-4">
             <input type="checkbox" className="size-5" checked={selected.includes(slug)} onChange={e=>{setOverrides(old=>({...old,[slug]:e.target.checked}));setAdded(false);}}/>
-            <img src={p.image} alt="" width={64} height={64} className="size-16 rounded-xl object-cover"/>
+            <img src={p.image} alt="" loading="lazy" decoding="async" width={64} height={64} className="size-16 rounded-xl object-cover"/>
             <span className="text-base">{p.name}<span className="block text-sm text-muted-foreground">Example only · Ask for price</span></span>
           </label>})}</div>
         </fieldset>

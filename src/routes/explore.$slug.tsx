@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Phone } from "lucide-react";
-import { business, categories, getCategory } from "@/content/site";
+import { business, categories, getCategory , imageSrcSet } from "@/content/site";
 import { useReveal } from "@/lib/motion";
 import { EnquireButton, toneClass } from "@/components/site/CategoryDetail";
 
@@ -37,7 +37,7 @@ function CategoryPage() {
         <Link to="/explore" className="inline-flex items-center gap-2 text-sm opacity-80 hover:opacity-100"><ArrowLeft className="h-4 w-4" /> All categories</Link>
         <div className="mt-8 grid items-end gap-10 md:grid-cols-2">
           <h1 data-reveal className="display text-[clamp(3.5rem,9vw,8rem)]"><span className="line-mask"><span>{cat.name}</span></span></h1>
-          <div data-reveal className="leaf overflow-hidden"><img src={cat.image} alt={`${cat.name}`} className="aspect-[4/3] w-full object-cover" /></div>
+          <div data-reveal className="leaf overflow-hidden"><img src={cat.image} srcSet={imageSrcSet(cat.image, [480, 900, 1200])} sizes="(max-width: 767px) 100vw, 50vw" alt={`${cat.name}`} loading="lazy" decoding="async" width={1000} height={750} className="aspect-[4/3] w-full object-cover" /></div>
         </div>
       </div>
       <div data-nav="light" className="grid gap-12 px-6 py-20 md:grid-cols-[1.2fr_1fr] md:px-14 md:py-28">
