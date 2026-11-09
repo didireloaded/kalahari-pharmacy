@@ -14,6 +14,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { EnquiryProvider } from "@/lib/enquiry";
 import { Shell } from "@/components/site/Chrome";
+import { BasketProvider } from "@/lib/basket";
 
 function NotFoundComponent() {
   return (
@@ -93,9 +94,11 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <EnquiryProvider>
+        <BasketProvider>
         <Shell>
           <Outlet />
         </Shell>
+        </BasketProvider>
       </EnquiryProvider>
     </QueryClientProvider>
   );

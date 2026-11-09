@@ -4,24 +4,35 @@ import { useEffect, useState, type ReactNode } from "react";
 import { useEnquiry } from "@/lib/enquiry";
 import { business } from "@/content/site";
 import { useParallax } from "@/lib/motion";
+import { useBasket } from "@/lib/basket";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
-    <span className={`font-display font-extrabold tracking-[-0.03em] leading-none ${className}`} style={{ fontStretch: "80%" }}>
+    <span className={`font-display font-extrabold leading-none ${className}`}>
       Kalahari<span className="font-sans font-normal tracking-normal opacity-80"> pharmacy</span>
     </span>
   );
 }
 
 const links = [
+  { to: "/", label: "Home" },
   { to: "/explore", label: "Explore" },
-  { to: "/contact", label: "Visit" },
+  { to: "/store", label: "Store" },
+  { to: "/services", label: "Services" },
+  { to: "/prescriptions", label: "Prescriptions" },
+  { to: "/about", label: "About" },
+  { to: "/faqs", label: "FAQs" },
+  { to: "/visit", label: "Visit" },
+  { to: "/contact", label: "Contact" },
 ] as const;
 
 export function Nav() {
   const [onDark, setOnDark] = useState(false);
   const [open, setOpen] = useState(false);
   const { items } = useEnquiry();
+  const { items: basket } = useBasket();
   const path = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => setOpen(false), [path]);
@@ -34,7 +45,7 @@ export function Nav() {
       let dark = false;
       secs.forEach((s) => {
         const r = s.getBoundingClientRect();
-        if (r.top <= y && r.bottom >= y) dark = s.dataset.nav === "dark";
+        if (r.top <= y && r.bottom >= y) dark = s.dataset['nav'] === "dark";
       });
       setOnDark(dark);
     };
@@ -50,15 +61,15 @@ export function Nav() {
   const pill = onDark ? "pill-glass text-paper hover:bg-paper/35" : "bg-ink/[0.06] text-ink hover:bg-ink/10 backdrop-blur-md";
 
   return (
-    <header className="fixed inset-x-3 top-3 z-50 md:inset-x-[4vw] md:top-[4vw]">
-      <nav aria-label="Main" className={`flex items-center justify-between px-5 py-4 transition-colors duration-500 md:px-10 md:py-6 ${tone}`}>
+    <header className={`site-header fixed inset-x-3 top-3 z-50 md:inset-x-[4vw] md:top-[4vw] ${path === '/' ? 'home-header' : ''}`}>
+      <nav aria-label="Main" className={`flex items-center justify-between gap-3 rounded-lg bg-paper px-4 py-3 text-ink ${tone}`}>
         <Link to="/" aria-label="Kalahari Pharmacy home" className="text-xl md:text-2xl">
           <Wordmark />
         </Link>
-        <ul className="absolute left-1/2 hidden -translate-x-1/2 gap-2 md:flex">
+        <ul className="hidden gap-1 min-[1300px]:flex">
           {links.map((l) => (
             <li key={l.to}>
-              <Link to={l.to} className={`rounded-full px-5 py-2 text-sm transition-colors duration-500 ${pill}`} activeProps={{ "aria-current": "page" }}>
+              <Link to={l.to} className="block px-2 py-3 text-sm font-medium text-ink hover:underline" activeProps={{ "aria-current": "page" }}>
                 {l.label}
               </Link>
             </li>
@@ -68,18 +79,16 @@ export function Nav() {
           <a href={business.instagram} target="_blank" rel="noreferrer" aria-label="Kalahari Pharmacy on Instagram" className={`hidden h-10 w-10 place-items-center rounded-full transition-colors duration-500 sm:grid ${pill}`}>
             <Instagram className="h-4 w-4" />
           </a>
-          <Link to="/enquiry" aria-label={`My enquiry list, ${items.length} item${items.length === 1 ? "" : "s"}`} className={`relative grid h-10 w-10 place-items-center rounded-full transition-colors duration-500 ${pill}`}>
+          <Link to="/cart" aria-label={`Request basket, ${basket.length} items`} className="relative grid h-10 w-10 place-items-center rounded-full bg-ice text-ink">
             <ShoppingBag className="h-4 w-4" />
-            {items.length > 0 && (
-              <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-sun px-1 text-[11px] font-semibold text-sun-foreground">{items.length}</span>
+            {basket.length + items.length > 0 && (
+              <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-sun px-1 text-xs font-semibold text-sun-foreground">{basket.length + items.length}</span>
             )}
           </Link>
-          <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? "Close menu" : "Open menu"} className={`grid h-10 w-10 place-items-center rounded-full md:hidden ${pill}`}>
-            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-          </button>
+          <Sheet open={open} onOpenChange={setOpen}><SheetTrigger asChild><Button variant="ghost" size="icon" aria-label="Open menu" className="min-[1300px]:hidden"><Menu /></Button></SheetTrigger><SheetContent className="w-full max-w-md overflow-y-auto"><SheetTitle>Kalahari Pharmacy</SheetTitle><SheetDescription>Pages and enquiry lists</SheetDescription><nav aria-label="All pages" className="mt-6">{[...links, { to: '/enquiry', label: 'My enquiry list' }, { to: '/cart', label: 'Request basket' }].map((l) => <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="block py-3 text-xl font-medium">{l.label}</Link>)}</nav></SheetContent></Sheet>
         </div>
       </nav>
-      {open && (
+      {false && open && (
         <div id="mobile-menu" className="mx-2 rounded-3xl bg-paper p-6 text-ink shadow-[var(--shadow-card)] animate-in fade-in slide-in-from-top-2 md:hidden">
           <ul className="space-y-1">
             {[{ to: "/", label: "Home" }, ...links, { to: "/enquiry", label: "My enquiry list" }].map((l) => (
@@ -132,6 +141,7 @@ export function Footer() {
         </div>
       </div>
       <p className="mt-10 text-xs text-muted-foreground">© {new Date().getFullYear()} Kalahari Pharmacy, Windhoek.</p>
+      <div className="mt-8 flex flex-wrap gap-x-6 gap-y-4 text-base">{[...links, {to:'/privacy',label:'Privacy'}, {to:'/terms',label:'Terms'}, {to:'/accessibility',label:'Accessibility'}, {to:'/enquiry',label:'Enquiry list'}].map((l) => <Link key={l.to} to={l.to} className="underline underline-offset-4">{l.label}</Link>)}</div>
     </footer>
   );
 }
@@ -139,7 +149,7 @@ export function Footer() {
 export function Shell({ children }: { children: ReactNode }) {
   useParallax();
   return (
-    <div className="min-h-screen p-3 md:p-[4vw]">
+    <div className="site-shell min-h-screen p-3 md:p-[4vw]">
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-paper focus:px-4 focus:py-2">Skip to content</a>
       <Nav />
       <div className="relative overflow-clip rounded-shell bg-paper">

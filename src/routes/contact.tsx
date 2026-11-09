@@ -6,9 +6,9 @@ import { useReveal } from "@/lib/motion";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Visit & contact — Kalahari Pharmacy, Windhoek" },
+      { title: "Contact — Kalahari Pharmacy, Windhoek" },
       { name: "description", content: "Find Kalahari Pharmacy at Gustav Voigts Centre, Independence Avenue, Windhoek. Call +264 61 252 448 or email kalpharm@iway.na." },
-      { property: "og:title", content: "Visit Kalahari Pharmacy" },
+      { property: "og:title", content: "Contact Kalahari Pharmacy" },
       { property: "og:description", content: "Gustav Voigts Centre, Independence Avenue, Windhoek, Namibia." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -30,8 +30,7 @@ function Contact() {
       <div data-nav="dark" className="bg-hero px-6 pb-20 pt-32 text-paper md:px-14 md:pb-28 md:pt-44">
         <p className="eyebrow text-ice">Visit</p>
         <h1 data-reveal className="display mt-4 text-[clamp(3.5rem,11vw,10rem)]">
-          <span className="line-mask"><span>Find us in</span></span>
-          <span className="line-mask"><span style={{ transitionDelay: "120ms" }}>the city centre.</span></span>
+          <span className="line-mask"><span>Let’s talk.</span></span>
         </h1>
         <address className="mt-10 not-italic text-xl md:text-2xl">{business.addressLines.map((l) => <span key={l} className="block">{l}</span>)}</address>
       </div>
