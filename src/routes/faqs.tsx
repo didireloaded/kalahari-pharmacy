@@ -1,0 +1,15 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { pageHead } from "@/lib/seo";
+import { business } from "@/content/site";
+export const faqItems = [
+  { question: "Where is Kalahari Pharmacy?", answer: "Gustav Voigts Centre, Independence Avenue, Windhoek, Namibia. Use the Visit page for map directions and call ahead to confirm your visit." },
+  { question: "How do I contact the pharmacy?", answer: `Call ${business.phoneDisplay} or email ${business.email}. The Contact page also links to the existing Instagram account. No WhatsApp number is confirmed.` },
+  { question: "What are the opening hours?", answer: "Opening hours are unconfirmed. Please call the pharmacy before visiting; this website does not show a live open/closed status." },
+  { question: "Are the store items in stock, and what do they cost?", answer: "The catalogue is illustrative, not a stock list. All items show Ask for price. The pharmacy must confirm the actual product, availability, pack size and pricing directly." },
+  { question: "Can I pay or place a confirmed order here?", answer: "No. The request basket prepares an email in your own email app. It does not reserve stock, accept payment or create a confirmed sale. The pharmacy must separately confirm any purchase arrangements." },
+  { question: "How are prescription repeats handled?", answer: "Call first to ask the pharmacy about repeats, documentation and applicable requirements. There is no prescription upload or repeat authorisation on this website. Do not include medical details in ordinary email enquiries." },
+  { question: "Are there purchase limits?", answer: "No purchase limit has been confirmed for this website. Quantities in a request basket are a preference, not permission to buy any amount. Ask the pharmacy about actual availability and any applicable limits or legal requirements." },
+  { question: "Are delivery, medical aid or clinic services available?", answer: "These arrangements are not confirmed here. Please ask the pharmacy directly about services, payment arrangements and collection or delivery policies." },
+];
+export const Route = createFileRoute("/faqs")({ head: () => pageHead("/faqs", "Frequently asked questions", "Grounded answers about Kalahari Pharmacy contact details, unconfirmed hours, illustrative items, prescriptions and enquiries."), component: FAQs });
+function FAQs() { return <section className="information-page" data-nav="light"><h1 className="display page-title">Your questions</h1><p className="page-intro">What this website can answer — and what to confirm directly.</p><div className="mt-12">{faqItems.map((f) => <details key={f.question} className="faq-row"><summary className="cursor-pointer py-6 text-xl font-semibold">{f.question}</summary><p className="max-w-3xl pb-6 text-lg leading-relaxed">{f.answer}</p></details>)}</div><Link to="/contact" className="editorial-link mt-10 inline-block">Contact the pharmacy</Link></section>; }
