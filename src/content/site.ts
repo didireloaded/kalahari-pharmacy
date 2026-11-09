@@ -1,5 +1,6 @@
 // Editable content. Swap business data, images, categories and messages here.
 import jar from "@/assets/obj-jar.png";
+import type { OpeningSchedule } from "@/lib/hours";
 import pump from "@/assets/obj-pump.png";
 import kit from "@/assets/obj-kit.png";
 
@@ -14,6 +15,8 @@ export const business = {
   email: "kalpharm@iway.na",
   instagram: "https://www.instagram.com/kalahari_pharmacy/",
   instagramHandle: "@kalahari_pharmacy",
+  // Add an owner-approved schedule here to activate the live Windhoek status.
+  openingHours: undefined as OpeningSchedule | undefined,
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Kalahari+Pharmacy+Gustav+Voigts+Centre+Independence+Avenue+Windhoek",
   // Hours intentionally omitted until confirmed by the pharmacy.
