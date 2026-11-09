@@ -3,7 +3,6 @@ import { ShoppingBag, Menu, Instagram } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { useEnquiry } from "@/lib/enquiry";
 import { business } from "@/content/site";
-import { useParallax } from "@/lib/motion";
 import { useBasket } from "@/lib/basket";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetDescription } from "@/components/ui/sheet";
@@ -153,7 +152,6 @@ export function Footer() {
 }
 
 export function Shell({ children }: { children: ReactNode }) {
-  useParallax();
   const path = useRouterState({ select: (s) => s.location.pathname });
   const [introScrolled, setIntroScrolled] = useState(false);
   const [introSceneFinished, setIntroSceneFinished] = useState(false);

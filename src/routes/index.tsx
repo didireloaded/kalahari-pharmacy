@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState, type PointerEvent } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, MapPin, MessageCircle, Phone, Mail, Instagram } from "lucide-react";
 import { business, categories, featured, getCategory, images, imageSrcSet, infoCards, messages, type Category } from "@/content/site";
-import { useReveal } from "@/lib/motion";
+import { useParallax, useReveal } from "@/lib/motion";
 import { ScrollHero } from "@/components/site/ScrollHero";
 import { VisitUtilityStrip } from "@/components/site/Utility";
 import { CategoryDialog } from "@/components/site/CategoryDetail";
@@ -22,6 +22,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  useParallax();
   const [open, setOpen] = useState<Category | null>(null);
   return (
     <>

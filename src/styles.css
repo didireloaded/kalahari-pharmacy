@@ -93,7 +93,7 @@
 
 @layer base {
   * { border-color: var(--color-border); }
-  html { -webkit-font-smoothing: antialiased; }
+  html { -webkit-font-smoothing: antialiased; scroll-padding-top: calc(4rem + env(safe-area-inset-top, 0px)); }
   body {
     background-color: var(--paper);
     color: var(--color-foreground);
@@ -178,7 +178,7 @@
 
 /* Kalahari editorial v2. Keep the established palette from the first build. */
 /* Fixed, opaque, full-width header with no exposed canvas behind it. */
-.site-header { margin: 0; background: var(--paper); }
+.site-header { margin: 0; padding-top: env(safe-area-inset-top, 0px); background: var(--paper); }
 .site-header .nav-link { text-decoration: none; }
 .site-header .nav-link:is(:hover, :focus-visible, [aria-current="page"]) {
   background-color: var(--ice);

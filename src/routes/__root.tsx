@@ -56,7 +56,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { title: "Kalahari Pharmacy — Windhoek" },
       { name: "description", content: "Your everyday neighbourhood pharmacy at Gustav Voigts Centre, Windhoek." },
       { property: "og:type", content: "website" },
