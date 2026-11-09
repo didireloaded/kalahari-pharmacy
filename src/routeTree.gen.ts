@@ -17,6 +17,10 @@ import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EnquiryRouteImport } from './routes/enquiry'
 import { Route as ExploreRouteImport } from './routes/explore'
+import { Route as ClinicRouteImport } from './routes/clinic'
+import { Route as MedicalAidRouteImport } from './routes/medical-aid'
+import { Route as TravelRouteImport } from './routes/travel'
+import { Route as WellnessGuideRouteImport } from './routes/wellness-guide'
 import { Route as FaqsRouteImport } from './routes/faqs'
 import { Route as PrescriptionsRouteImport } from './routes/prescriptions'
 import { Route as PrivacyRouteImport } from './routes/privacy'
@@ -103,6 +107,26 @@ const VisitRoute = VisitRouteImport.update({
   path: '/visit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ClinicRoute = ClinicRouteImport.update({
+  id: '/clinic',
+  path: '/clinic',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MedicalAidRoute = MedicalAidRouteImport.update({
+  id: '/medical-aid',
+  path: '/medical-aid',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TravelRoute = TravelRouteImport.update({
+  id: '/travel',
+  path: '/travel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WellnessGuideRoute = WellnessGuideRouteImport.update({
+  id: '/wellness-guide',
+  path: '/wellness-guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExploreSlugRoute = ExploreSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -128,6 +152,10 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/enquiry': typeof EnquiryRoute
   '/explore': typeof ExploreRouteWithChildren
+  '/clinic': typeof ClinicRoute
+  '/medical-aid': typeof MedicalAidRoute
+  '/travel': typeof TravelRoute
+  '/wellness-guide': typeof WellnessGuideRoute
   '/faqs': typeof FaqsRoute
   '/prescriptions': typeof PrescriptionsRoute
   '/privacy': typeof PrivacyRoute
@@ -148,6 +176,10 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/enquiry': typeof EnquiryRoute
   '/explore': typeof ExploreRouteWithChildren
+  '/clinic': typeof ClinicRoute
+  '/medical-aid': typeof MedicalAidRoute
+  '/travel': typeof TravelRoute
+  '/wellness-guide': typeof WellnessGuideRoute
   '/faqs': typeof FaqsRoute
   '/prescriptions': typeof PrescriptionsRoute
   '/privacy': typeof PrivacyRoute
@@ -168,6 +200,10 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/enquiry': typeof EnquiryRoute
   '/explore': typeof ExploreRouteWithChildren
+  '/clinic': typeof ClinicRoute
+  '/medical-aid': typeof MedicalAidRoute
+  '/travel': typeof TravelRoute
+  '/wellness-guide': typeof WellnessGuideRoute
   '/faqs': typeof FaqsRoute
   '/prescriptions': typeof PrescriptionsRoute
   '/privacy': typeof PrivacyRoute
@@ -190,6 +226,10 @@ export interface FileRouteTypes {
     | '/contact'
     | '/enquiry'
     | '/explore'
+    | '/clinic'
+    | '/medical-aid'
+    | '/travel'
+    | '/wellness-guide'
     | '/faqs'
     | '/prescriptions'
     | '/privacy'
@@ -210,6 +250,10 @@ export interface FileRouteTypes {
     | '/contact'
     | '/enquiry'
     | '/explore'
+    | '/clinic'
+    | '/medical-aid'
+    | '/travel'
+    | '/wellness-guide'
     | '/faqs'
     | '/prescriptions'
     | '/privacy'
@@ -229,6 +273,10 @@ export interface FileRouteTypes {
     | '/contact'
     | '/enquiry'
     | '/explore'
+    | '/clinic'
+    | '/medical-aid'
+    | '/travel'
+    | '/wellness-guide'
     | '/faqs'
     | '/prescriptions'
     | '/privacy'
@@ -250,6 +298,10 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   EnquiryRoute: typeof EnquiryRoute
   ExploreRoute: typeof ExploreRouteWithChildren
+  ClinicRoute: typeof ClinicRoute
+  MedicalAidRoute: typeof MedicalAidRoute
+  TravelRoute: typeof TravelRoute
+  WellnessGuideRoute: typeof WellnessGuideRoute
   FaqsRoute: typeof FaqsRoute
   PrescriptionsRoute: typeof PrescriptionsRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -315,6 +367,34 @@ declare module '@tanstack/react-router' {
       path: '/explore'
       fullPath: '/explore'
       preLoaderRoute: typeof ExploreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clinic': {
+      id: '/clinic'
+      path: '/clinic'
+      fullPath: '/clinic'
+      preLoaderRoute: typeof ClinicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/medical-aid': {
+      id: '/medical-aid'
+      path: '/medical-aid'
+      fullPath: '/medical-aid'
+      preLoaderRoute: typeof MedicalAidRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/travel': {
+      id: '/travel'
+      path: '/travel'
+      fullPath: '/travel'
+      preLoaderRoute: typeof TravelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wellness-guide': {
+      id: '/wellness-guide'
+      path: '/wellness-guide'
+      fullPath: '/wellness-guide'
+      preLoaderRoute: typeof WellnessGuideRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faqs': {
@@ -422,6 +502,10 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   EnquiryRoute: EnquiryRoute,
   ExploreRoute: ExploreRouteWithChildren,
+  ClinicRoute: ClinicRoute,
+  MedicalAidRoute: MedicalAidRoute,
+  TravelRoute: TravelRoute,
+  WellnessGuideRoute: WellnessGuideRoute,
   FaqsRoute: FaqsRoute,
   PrescriptionsRoute: PrescriptionsRoute,
   PrivacyRoute: PrivacyRoute,
