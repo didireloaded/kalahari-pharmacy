@@ -47,7 +47,7 @@ const Line = ({ children, d = 0, className = "" }: { children: React.ReactNode; 
 function About() {
   const ref = useReveal<HTMLElement>();
   return (
-    <section id="about" ref={ref} className="relative overflow-hidden px-6 pb-24 pt-24 md:pb-40 md:pt-40" data-nav="light">
+    <section id="about" ref={ref} className="relative overflow-hidden px-5 pb-16 pt-16 sm:px-8 sm:pb-24 sm:pt-24 md:pb-32 md:pt-32" data-nav="light">
       <div className="absolute -left-10 top-24 hidden w-[22vw] max-w-[320px] md:block" aria-hidden>
         <div data-reveal className="leaf" ><img src={images.aboutLeft} srcSet={imageSrcSet(images.aboutLeft, [320, 640, 900])} sizes="(min-width: 768px) 22vw, 48vw" alt="" loading="lazy" decoding="async" width={700} height={900} className="aspect-[3/4] w-full object-cover" data-parallax="-0.08" /></div>
       </div>
@@ -63,7 +63,7 @@ function About() {
           On Independence Avenue at Gustav Voigts Centre, we keep things simple: everyday products, honest answers, and time for your questions.
         </p>
       </div>
-      <div className="mt-12 grid grid-cols-2 gap-3 md:hidden" aria-hidden>
+      <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-5 md:hidden" aria-hidden>
         <img src={images.aboutLeft} srcSet={imageSrcSet(images.aboutLeft, [320, 640, 900])} sizes="48vw" alt="" loading="lazy" decoding="async" width={700} height={900} className="aspect-[3/4] w-full rounded-t-full rounded-b-3xl object-cover" />
         <img src={images.aboutRight} srcSet={imageSrcSet(images.aboutRight, [320, 640, 900])} sizes="48vw" alt="" loading="lazy" decoding="async" width={700} height={900} className="mt-10 aspect-[3/4] w-full rounded-t-full rounded-b-3xl object-cover" />
       </div>
@@ -180,7 +180,7 @@ function Editorial() {
     <section ref={ref} data-nav="light" className="px-5 py-16 sm:px-8 md:px-14 md:py-28" aria-roledescription="carousel" aria-label="Why care matters">
       <h2 className="display mx-auto max-w-5xl text-center text-[clamp(2.75rem,7vw,6.5rem)]"><Line>Why everyday</Line><Line d={100}>care matters.</Line></h2>
       <div className="mt-10 grid min-w-0 items-center gap-8 sm:mt-14 md:mt-20 md:grid-cols-[minmax(0,320px)_minmax(0,1fr)] md:gap-16">
-        <div className="relative mx-auto h-[300px] w-[260px] md:h-[380px] md:w-[300px]" aria-hidden>
+        <div className="relative mx-auto h-[280px] w-[260px] sm:h-[320px] md:h-[380px] md:w-[300px]" aria-hidden>
           <div className="absolute left-0 top-6 h-28 w-28 rounded-2xl bg-tangerine" />
           <div className="absolute bottom-0 right-2 h-32 w-32 rounded-2xl bg-ice" />
           {messages.map((x, k) => {
@@ -215,17 +215,17 @@ function Visit() {
   const ref = useReveal<HTMLElement>();
   return (
     <section ref={ref} className="w-full px-0" data-nav="dark">
-      <div data-reveal className="reveal grid gap-10 bg-hero p-8 text-paper md:grid-cols-2 md:p-14">
+      <div data-reveal className="reveal grid min-w-0 gap-8 bg-hero p-6 text-paper sm:p-8 md:grid-cols-2 md:gap-10 md:p-14">
         <div>
           <p className="eyebrow text-ice">Visit</p>
-          <h2 className="display mt-4 text-[clamp(2.75rem,6vw,5.5rem)]">Come say hello.</h2>
-          <address className="mt-6 not-italic text-lg">{business.addressLines.map((l) => <span key={l} className="block">{l}</span>)}</address>
+          <h2 className="display mt-4 text-[clamp(2.45rem,9vw,4rem)] md:text-[clamp(3.5rem,6vw,5.5rem)]">Come say hello.</h2>
+          <address className="mt-6 not-italic text-base leading-relaxed sm:text-lg">{business.addressLines.map((l) => <span key={l} className="block">{l}</span>)}</address>
         </div>
         <div className="flex flex-col justify-end gap-3">
-          <a href={business.phoneHref} className="group flex items-center justify-between rounded-full bg-paper px-6 py-4 text-ink"><span className="flex items-center gap-3"><Phone className="h-4 w-4" />{business.phoneDisplay}</span><ArrowUpRight className="nudge h-4 w-4" /></a>
-          <a href={`mailto:${business.email}`} className="group flex items-center justify-between rounded-full bg-paper/15 px-6 py-4 hover:bg-paper/25"><span className="flex items-center gap-3"><Mail className="h-4 w-4" />{business.email}</span><ArrowUpRight className="nudge h-4 w-4" /></a>
-          <a href={business.mapsUrl} target="_blank" rel="noreferrer" className="group flex items-center justify-between rounded-full bg-paper/15 px-6 py-4 hover:bg-paper/25"><span className="flex items-center gap-3"><MapPin className="h-4 w-4" />Get directions</span><ArrowUpRight className="nudge h-4 w-4" /></a>
-          <a href={business.instagram} target="_blank" rel="noreferrer" className="group flex items-center justify-between rounded-full bg-paper/15 px-6 py-4 hover:bg-paper/25"><span className="flex items-center gap-3"><Instagram className="h-4 w-4" />{business.instagramHandle}</span><ArrowUpRight className="nudge h-4 w-4" /></a>
+          <a href={business.phoneHref} className="group flex min-h-14 min-w-0 items-center justify-between gap-3 rounded-xl bg-paper px-4 py-4 text-ink sm:rounded-full sm:px-6"><span className="flex min-w-0 items-center gap-3 text-sm sm:text-base"><Phone className="size-4 shrink-0" />{business.phoneDisplay}</span><ArrowUpRight className="nudge h-4 w-4" /></a>
+          <a href={`mailto:${business.email}`} className="group flex min-h-14 min-w-0 items-center justify-between gap-3 rounded-xl bg-paper/15 px-4 py-4 hover:bg-paper/25 sm:rounded-full sm:px-6"><span className="flex min-w-0 items-center gap-3 break-all text-sm sm:text-base"><Mail className="size-4 shrink-0" />{business.email}</span><ArrowUpRight className="nudge h-4 w-4" /></a>
+          <a href={business.mapsUrl} target="_blank" rel="noreferrer" className="group flex min-h-14 min-w-0 items-center justify-between gap-3 rounded-xl bg-paper/15 px-4 py-4 hover:bg-paper/25 sm:rounded-full sm:px-6"><span className="flex items-center gap-3"><MapPin className="h-4 w-4" />Get directions</span><ArrowUpRight className="nudge h-4 w-4" /></a>
+          <a href={business.instagram} target="_blank" rel="noreferrer" className="group flex min-h-14 min-w-0 items-center justify-between gap-3 rounded-xl bg-paper/15 px-4 py-4 hover:bg-paper/25 sm:rounded-full sm:px-6"><span className="flex items-center gap-3"><Instagram className="h-4 w-4" />{business.instagramHandle}</span><ArrowUpRight className="nudge h-4 w-4" /></a>
         </div>
       </div>
     </section>
