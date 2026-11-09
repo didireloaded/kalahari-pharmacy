@@ -110,7 +110,7 @@ function Products({ onOpen }: { onOpen: (c: Category) => void }) {
   const ref = useReveal<HTMLElement>();
   const feat = featured.map((s) => getCategory(s)!);
   return (
-    <section ref={ref} className="w-full px-0 pb-24 md:pb-32" data-nav="light" aria-labelledby="browse-h">
+    <section ref={ref} className="w-full px-0 pb-0" data-nav="light" aria-labelledby="browse-h">
       <div className="mb-10 flex flex-col items-start justify-between gap-4 px-6 md:flex-row md:items-end md:px-14">
         <h2 id="browse-h" className="display text-[clamp(2.5rem,6vw,5.5rem)]"><Line>Browse what</Line><Line d={100}>we can help with.</Line></h2>
         <Link to="/explore" className="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm text-paper">
