@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState, type PointerEvent } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, MapPin, MessageCircle, Phone, Mail, Instagram } from "lucide-react";
-import { business, categories, featured, getCategory, images, infoCards, messages, type Category } from "@/content/site";
+import { business, categories, featured, getCategory, images, imageSrcSet, infoCards, messages, type Category } from "@/content/site";
 import { useReveal } from "@/lib/motion";
 import { ScrollHero } from "@/components/site/ScrollHero";
 import { VisitUtilityStrip } from "@/components/site/Utility";
@@ -48,10 +48,10 @@ function About() {
   return (
     <section id="about" ref={ref} className="relative overflow-hidden px-6 pb-24 pt-24 md:pb-40 md:pt-40" data-nav="light">
       <div className="absolute -left-10 top-24 hidden w-[22vw] max-w-[320px] md:block" aria-hidden>
-        <div data-reveal className="leaf" ><img src={images.aboutLeft} alt="" loading="lazy" className="aspect-[3/4] w-full object-cover" data-parallax="-0.08" /></div>
+        <div data-reveal className="leaf" ><img src={images.aboutLeft} srcSet={imageSrcSet(images.aboutLeft, [320, 640, 900])} sizes="(min-width: 768px) 22vw, 48vw" alt="" loading="lazy" decoding="async" width={700} height={900} className="aspect-[3/4] w-full object-cover" data-parallax="-0.08" /></div>
       </div>
       <div className="absolute -right-10 bottom-16 hidden w-[22vw] max-w-[320px] md:block" aria-hidden>
-        <div data-reveal className="leaf-r" style={{ transitionDelay: "200ms" }}><img src={images.aboutRight} alt="" loading="lazy" className="aspect-[3/4] w-full object-cover" data-parallax="0.08" /></div>
+        <div data-reveal className="leaf-r" style={{ transitionDelay: "200ms" }}><img src={images.aboutRight} srcSet={imageSrcSet(images.aboutRight, [320, 640, 900])} sizes="(min-width: 768px) 22vw, 48vw" alt="" loading="lazy" decoding="async" width={700} height={900} className="aspect-[3/4] w-full object-cover" data-parallax="0.08" /></div>
       </div>
       <div data-reveal className="relative mx-auto max-w-4xl text-center">
         <p className="eyebrow text-muted-foreground">Our care</p>
@@ -63,8 +63,8 @@ function About() {
         </p>
       </div>
       <div className="mt-12 grid grid-cols-2 gap-3 md:hidden" aria-hidden>
-        <img src={images.aboutLeft} alt="" loading="lazy" className="aspect-[3/4] w-full rounded-t-full rounded-b-3xl object-cover" />
-        <img src={images.aboutRight} alt="" loading="lazy" className="mt-10 aspect-[3/4] w-full rounded-t-full rounded-b-3xl object-cover" />
+        <img src={images.aboutLeft} srcSet={imageSrcSet(images.aboutLeft, [320, 640, 900])} sizes="48vw" alt="" loading="lazy" decoding="async" width={700} height={900} className="aspect-[3/4] w-full rounded-t-full rounded-b-3xl object-cover" />
+        <img src={images.aboutRight} srcSet={imageSrcSet(images.aboutRight, [320, 640, 900])} sizes="48vw" alt="" loading="lazy" decoding="async" width={700} height={900} className="mt-10 aspect-[3/4] w-full rounded-t-full rounded-b-3xl object-cover" />
       </div>
     </section>
   );
@@ -130,7 +130,7 @@ function Lifestyle() {
   return (
     <section ref={ref} data-nav="dark" className="relative mx-0 overflow-hidden text-paper">
       <div className="relative flex min-h-[690px] flex-col justify-between md:min-h-[88svh]">
-        <img src={images.lifestyle} alt="A family walking together at sunset" loading="lazy" data-parallax="0.12" data-scale="1"
+        <img src={images.lifestyle} srcSet={imageSrcSet(images.lifestyle, [640, 960, 1440, 2000])} sizes="100vw" alt="A family walking together at sunset" loading="lazy" decoding="async" width={2000} height={1200} data-parallax="0.12" data-scale="1"
           className="absolute inset-[-8%] h-[116%] w-[116%] object-cover" />
         <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-ink/45 via-transparent to-ink/50" />
         <div className="relative z-10 px-6 pt-28 md:px-14 md:pt-36">

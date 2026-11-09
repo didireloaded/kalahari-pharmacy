@@ -27,15 +27,15 @@ export function EnquireButton({ slug, className = "" }: { slug: string; classNam
 export function CategoryDialog({ cat, onClose }: { cat: Category | null; onClose: () => void }) {
   return (
     <Dialog open={!!cat} onOpenChange={(o) => !o && onClose()}>
-      <DialogContent className="max-w-3xl overflow-hidden rounded-[28px] border-0 p-0 sm:rounded-[28px]">
+      <DialogContent className="w-[calc(100vw-1.5rem)] max-h-[calc(100dvh-1.5rem)] max-w-3xl overflow-x-hidden overflow-y-auto rounded-2xl border-0 p-0 sm:rounded-[28px]">
         {cat && (
           <div className="grid md:grid-cols-2">
-            <div className={`relative min-h-56 ${toneClass[cat.tone]}`}>
-              <img src={cat.image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90 animate-in zoom-in-110 duration-700" />
+            <div className={`relative min-h-40 sm:min-h-56 ${toneClass[cat.tone]}`}>
+              <img src={cat.image} alt="" loading="lazy" decoding="async" width={1000} height={750} className="absolute inset-0 h-full w-full object-cover opacity-90 animate-in zoom-in-110 duration-700" />
             </div>
-            <div className="p-7 md:p-9 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="p-5 sm:p-7 md:p-9 animate-in fade-in slide-in-from-bottom-4 duration-500">
               <p className="eyebrow text-muted-foreground">Category</p>
-              <DialogTitle className="display mt-2 text-5xl">{cat.name}</DialogTitle>
+              <DialogTitle className="display mt-2 text-[clamp(2.25rem,8vw,3rem)]">{cat.name}</DialogTitle>
               <DialogDescription className="mt-4 text-base text-muted-foreground">{cat.intro}</DialogDescription>
               <ul className="mt-5 space-y-2 text-sm">
                 {cat.enquire.map((e) => <li key={e} className="flex gap-2"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-hero" />{e}</li>)}

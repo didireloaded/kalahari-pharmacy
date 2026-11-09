@@ -24,6 +24,12 @@ export const business = {
 
 export const objects = { jar, pump, kit };
 
+/** Responsive image URLs for the existing Unsplash editorial photography. */
+export function imageSrcSet(src: string, widths: readonly number[]): string | undefined {
+  if (!src.startsWith("https://images.unsplash.com/")) return undefined;
+  return widths.map((width) => [src.replace(/([?&]w=)\d+/, `$1${width}`), width + "w"].join(" ")).join(", ");
+}
+
 export const images = {
   hero: u("photo-1531123897727-8f129e1688ce", 900, 1100),
   aboutLeft: u("photo-1580489944761-15a19d654956", 700, 900),

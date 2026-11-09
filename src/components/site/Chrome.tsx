@@ -45,11 +45,11 @@ export function Nav({ visible }: { visible: boolean }) {
 
   return (
     <header inert={!visible} aria-hidden={!visible} className={`site-header fixed inset-x-0 top-0 z-[80] w-full border-b border-border bg-paper shadow-[0_6px_24px_rgba(0,0,0,0.08)] transition-[opacity,transform] duration-300 ease-out ${visible ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-full opacity-0"}`}>
-      <nav aria-label="Main" className="mx-auto flex w-full max-w-[1700px] items-center justify-between gap-3 bg-paper px-4 py-3 text-ink md:px-[4vw]">
-        <Link to="/" aria-label="Kalahari Pharmacy home" className="text-xl md:text-2xl">
+      <nav aria-label="Main" className="mx-auto flex min-h-16 w-full max-w-[1700px] items-center justify-between gap-2 bg-paper px-3 py-2 text-ink sm:px-4 md:gap-3 md:px-[4vw]">
+        <Link to="/" aria-label="Kalahari Pharmacy home" className="min-w-0 whitespace-nowrap text-[clamp(0.98rem,4.6vw,1.35rem)] sm:text-xl md:text-2xl">
           <Wordmark />
         </Link>
-        <ul className="hidden gap-1 min-[1440px]:flex">
+        <ul className="hidden gap-1 min-[1280px]:flex">
           {links.map((l) => (
             <li key={l.to}>
               <Link to={l.to} className="nav-link block rounded-lg px-3 py-3 text-sm font-medium text-ink transition-colors duration-150" activeProps={{ "aria-current": "page" }}>
@@ -62,13 +62,46 @@ export function Nav({ visible }: { visible: boolean }) {
           <a href={business.instagram} target="_blank" rel="noreferrer" aria-label="Kalahari Pharmacy on Instagram" className={`hidden h-10 w-10 place-items-center rounded-full transition-colors duration-500 sm:grid ${pill}`}>
             <Instagram className="h-4 w-4" />
           </a>
-          <Link to="/cart" aria-label={`Request basket, ${basket.length} items`} className="relative grid h-10 w-10 place-items-center rounded-full bg-ice text-ink">
+          <Link to="/cart" aria-label={`Request basket, ${basket.length} items`} className="relative grid size-11 shrink-0 place-items-center rounded-full bg-ice text-ink hover:bg-ice/80">
             <ShoppingBag className="h-4 w-4" />
             {basket.length + items.length > 0 && (
               <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-sun px-1 text-xs font-semibold text-sun-foreground">{basket.length + items.length}</span>
             )}
           </Link>
-          <Sheet open={open} onOpenChange={setOpen}><SheetTrigger asChild><Button variant="ghost" size="icon" aria-label="Open menu" className="min-[1440px]:hidden"><Menu /></Button></SheetTrigger><SheetContent className="w-full max-w-md overflow-y-auto"><SheetTitle>Kalahari Pharmacy</SheetTitle><SheetDescription>Pages and enquiry lists</SheetDescription><nav aria-label="All pages" className="mt-6">{[...links, ...extraLinks, { to: '/enquiry', label: 'My enquiry list' }, { to: '/cart', label: 'Request basket' }].map((l) => <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="block py-3 text-xl font-medium">{l.label}</Link>)}</nav></SheetContent></Sheet>
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" aria-label={open ? "Menu open" : "Open menu"} className="size-11 shrink-0 min-[1280px]:hidden"><Menu /></Button>
+            </SheetTrigger>
+            <SheetContent className="w-full max-w-[440px] overflow-y-auto px-5 pb-[max(2rem,env(safe-area-inset-bottom))] sm:px-7">
+              <SheetTitle className="pt-4 text-2xl">Kalahari Pharmacy</SheetTitle>
+              <SheetDescription className="mt-1 text-base">Find products, services and pharmacy information.</SheetDescription>
+              <nav aria-label="Mobile website navigation" className="mt-8 space-y-8">
+                <div>
+                  <p className="mb-3 text-sm font-semibold text-muted-foreground">Explore the website</p>
+                  <div className="grid grid-cols-2 gap-1">
+                    {links.map((link) => (
+                      <Link key={link.to} to={link.to} onClick={() => setOpen(false)}
+                        className="flex min-h-12 items-center rounded-xl px-3 text-base font-medium text-ink hover:bg-ice focus-visible:bg-ice"
+                        activeProps={{ "aria-current": "page" }}>{link.label}</Link>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <p className="mb-3 text-sm font-semibold text-muted-foreground">Helpful information</p>
+                  <div className="grid grid-cols-2 gap-1">
+                    {extraLinks.map((link) => (
+                      <Link key={link.to} to={link.to} onClick={() => setOpen(false)}
+                        className="flex min-h-12 items-center rounded-xl px-3 text-sm font-medium text-ink hover:bg-ice focus-visible:bg-ice"
+                        activeProps={{ "aria-current": "page" }}>{link.label}</Link>
+                    ))}
+                    <Link to="/enquiry" onClick={() => setOpen(false)}
+                      className="flex min-h-12 items-center rounded-xl px-3 text-sm font-medium text-ink hover:bg-ice">My enquiry list</Link>
+                  </div>
+                </div>
+                <a href={business.phoneHref} className="flex min-h-12 items-center justify-center rounded-full bg-ink px-6 py-3 text-base font-semibold text-paper">Call {business.phoneDisplay}</a>
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
       </nav>
 

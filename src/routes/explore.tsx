@@ -29,10 +29,10 @@ function Explore() {
   const [q, setQ] = useState("");
   const list = categories.filter((c) => (c.name + c.short + c.enquire.join(" ")).toLowerCase().includes(q.toLowerCase()));
   return (
-    <section ref={ref} data-nav="light" className="px-3 pb-10 pt-32 md:px-10 md:pt-44">
+    <section ref={ref} data-nav="light" className="px-4 pb-12 pt-28 sm:px-6 md:px-10 md:pt-36">
       <div data-reveal className="px-3">
         <p className="eyebrow text-muted-foreground">Explore</p>
-        <h1 className="display mt-4 text-[clamp(3.5rem,10vw,9rem)]">
+        <h1 className="display mt-4 break-words text-[clamp(2.75rem,9.4vw,9rem)]">
           <span className="line-mask"><span>What you can</span></span>
           <span className="line-mask"><span style={{ transitionDelay: "120ms" }}>ask us about.</span></span>
         </h1>
