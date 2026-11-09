@@ -5,6 +5,7 @@ import { getCategory } from "@/content/site";
 import { buildMailto, useEnquiry } from "@/lib/enquiry";
 import { toneClass } from "@/components/site/CategoryDetail";
 import { Button } from "@/components/ui/button";
+import { enquiryPrintText } from "@/lib/export-enquiry";
 
 export const Route = createFileRoute("/enquiry")({
   head: () => ({
@@ -25,6 +26,11 @@ function Enquiry() {
   const { items, remove, clear } = useEnquiry();
   const [name, setName] = useState("");
   const [note, setNote] = useState("");
+  const [copyStatus, setCopyStatus] = useState("");
+  const copyList = async () => {
+    try { await navigator.clipboard.writeText(enquiryPrintText(items)); setCopyStatus("List copied. No enquiry has been sent."); }
+    catch { setCopyStatus("Could not copy the list. Use Print / Save PDF instead."); }
+  };
   return (
     <section data-nav="light" className="px-6 pb-10 pt-32 md:px-14 md:pt-44">
       <p className="eyebrow text-muted-foreground">Enquiry — not a purchase</p>
@@ -47,6 +53,8 @@ function Enquiry() {
                 </li>
               );
             })}
+            <li className="flex flex-wrap gap-3"><button type="button" onClick={copyList} className="text-sm underline underline-offset-4">Copy list</button><button type="button" onClick={() => window.print()} className="text-sm underline underline-offset-4">Print / Save PDF</button></li>
+            <li role="status" aria-live="polite" className="text-sm text-muted-foreground">{copyStatus}</li>
             <li><button type="button" onClick={clear} className="text-sm text-muted-foreground underline underline-offset-4">Clear list</button></li>
           </ul>
           <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); window.location.href = buildMailto(items, name, note); }}>

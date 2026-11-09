@@ -38,3 +38,14 @@ See `docs/KALAHARI_WEBSITE_DESIGN_DIRECTION.md` and the reusable skill `.agents/
 ## Status and QA
 
 Changes are synced through GitHub and Lovable. The project has not been independently verified across browsers or payment workflows. A GitHub Actions verification workflow is present, but the initial run failed before a runner executed any commands, so **do not claim the build, lint or tests passed based on that workflow**. Run the commands in a real development environment before treating this as production-ready.
+
+## Additional customer tools
+
+- A quick-call/directions strip and persistent mobile actions keep location and contact available beyond the animated intro.
+- `/travel` is an illustrative safari first-aid kit checklist that can be printed, emailed as a request or added to the local basket. It offers no medicine/travel-health advice.
+- `/medical-aid` and `/clinic` present **questions to ask**; scheme participation and clinical services are unconfirmed.
+- `/wellness-guide` uses a server-only Lovable AI Gateway request for category matching after consent. Medical or identifying inputs are disallowed, output is restricted to existing category slugs. It depends on a functioning server-side `LOVABLE_API_KEY` and available gateway credits; no model success is claimed before live testing.
+- The optional PWA caches only public contact/visit information and static resources, with a basic offline contact fallback.
+- WhatsApp, live open status, prescription photos, clinical booking, payment and direct claims remain disabled until official business details, legal approval and suitable secure services are available.
+
+**Verification:** GitHub Actions has reported failed workflow jobs with zero runnable steps and unavailable logs, so type-check, lint, unit-test and live browser results remain unverified. Run these checks in the development environment before production rollout.
