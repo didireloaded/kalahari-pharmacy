@@ -127,28 +127,44 @@ function Products({ onOpen }: { onOpen: (c: Category) => void }) {
 const iconMap = { MapPin, MessageCircle, Phone };
 
 function Lifestyle() {
-  const ref = useReveal<HTMLElement>();
   return (
-    <section ref={ref} data-nav="dark" className="relative mx-0 overflow-hidden text-paper">
-      <div className="relative flex min-h-[690px] flex-col justify-between md:min-h-[88svh]">
-        <img src={images.lifestyle} srcSet={imageSrcSet(images.lifestyle, [640, 960, 1440, 2000])} sizes="100vw" alt="A family walking together at sunset" loading="lazy" decoding="async" width={2000} height={1200} data-parallax="0.12" data-scale="1"
-          className="absolute inset-[-8%] h-[116%] w-[116%] object-cover" />
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-ink/45 via-transparent to-ink/50" />
-        <div className="relative z-10 px-6 pt-28 md:px-14 md:pt-36">
-          <h2 className="display max-w-[11ch] text-[clamp(3rem,8vw,7.5rem)]"><Line>For the whole</Line><Line d={120}>household.</Line></h2><p className="relative z-10 mt-6 max-w-md text-lg leading-relaxed text-paper">Everyday essentials, a familiar place to ask, and support finding the right next step.</p>
+    <section data-nav="dark" className="w-full overflow-hidden bg-paper">
+      <div className="relative isolate flex min-h-[min(70svh,680px)] w-full flex-col justify-end overflow-hidden bg-ink text-paper md:min-h-[min(86svh,850px)]">
+        <img
+          src={images.lifestyle}
+          srcSet={imageSrcSet(images.lifestyle, [640, 960, 1440, 2000])}
+          sizes="100vw"
+          alt="A family walking together at sunset"
+          loading="lazy"
+          decoding="async"
+          width={2000}
+          height={1200}
+          className="absolute inset-0 block h-full w-full object-cover object-center"
+        />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/25 to-ink/10" />
+        <div className="relative z-10 w-full px-6 pb-10 pt-24 sm:px-8 sm:pb-14 md:px-14 md:pb-20">
+          <p className="mb-4 text-sm font-semibold tracking-wide text-paper/85">Everyday care</p>
+          <h2 className="display max-w-[12ch] text-[clamp(2.75rem,10vw,4.5rem)] leading-[0.95] md:text-[clamp(4.5rem,8vw,7.5rem)]">
+            For the whole household.
+          </h2>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-paper/95 md:mt-7 md:text-xl">
+            Everyday essentials, a familiar place to ask, and support finding the right next step.
+          </p>
         </div>
-        <div className="relative z-10 mx-3 mb-8 mt-16 grid gap-3 md:mx-10 md:mb-10 md:mt-20 md:grid-cols-3 md:gap-5">
-          {infoCards.map((c, i) => {
-            const I = iconMap[c.icon];
-            return (
-              <div key={c.title} data-reveal style={{ transitionDelay: `${200 + i * 150}ms` }} className="reveal rounded-3xl bg-paper p-6 text-ink shadow-[var(--shadow-card)]">
-                <I className="h-5 w-5 text-hero" aria-hidden />
-                <h3 className="mt-6 text-lg font-semibold">{c.title}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{c.text}</p>
+      </div>
+      <div className="grid grid-cols-1 border-b border-border bg-paper px-6 py-3 text-ink sm:px-8 md:grid-cols-3 md:px-10 md:py-8 lg:px-14">
+        {infoCards.map((card) => {
+          const Icon = iconMap[card.icon];
+          return (
+            <div key={card.title} className="flex min-w-0 gap-4 border-b border-border py-6 last:border-b-0 md:flex-col md:gap-5 md:border-b-0 md:border-r md:px-8 md:py-7 md:last:border-r-0">
+              <Icon className="mt-0.5 size-6 shrink-0 text-hero-deep md:size-7" aria-hidden="true" />
+              <div className="min-w-0">
+                <h3 className="text-lg font-semibold leading-snug md:text-xl">{card.title}</h3>
+                <p className="mt-2 max-w-sm text-sm leading-relaxed text-muted-foreground md:text-base">{card.text}</p>
               </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
