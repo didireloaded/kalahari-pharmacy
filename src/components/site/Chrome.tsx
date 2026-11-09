@@ -164,7 +164,7 @@ export function Footer() {
 export function Shell({ children }: { children: ReactNode }) {
   useParallax();
   return (
-    <div className="site-shell min-h-screen p-3 md:p-[4vw]">
+    <div className="site-shell min-h-screen p-3 pb-24 md:p-[4vw]">
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-paper focus:px-4 focus:py-2">Skip to content</a>
       <Nav />
       <div className="relative overflow-clip rounded-shell bg-paper">
