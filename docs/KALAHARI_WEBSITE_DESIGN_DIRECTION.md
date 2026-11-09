@@ -71,3 +71,19 @@ Reject generic AI SaaS/healthcare templates, gradient-based replacement for the 
 - Run `bun run lint`, `bun run test`, `bun run build` where available. Report actual results only.
 
 See `.agents/skills/website-design-craft/references/07-review-and-qa.md` for the full verification gate.
+
+## Approved update, 9 November 2026
+
+The user approved keeping the palette **unchanged** and revised the homepage choreography:
+
+- **First viewport:** an immersive wellness/lifestyle image, initially free of the large headline and floating product images.
+- **As the user scrolls:** navigation expands from a compact brand/menu presentation. The blue hero composition assembles progressively with the existing portrait, care object illustrations and **completely legible** headline “Care that feels closer.”
+- **Then the white content begins:** retain the rounded white overlay and headline “A familiar counter in the heart of Windhoek.”
+- **Lifestyle family section:** reduce previously excessive blank vertical area and move the three information panels into a tighter layout.
+- **Editorial section:** links and details must remain visible against white backgrounds, and messages must not be mistaken for fabricated customer testimonials.
+
+Add distinct About, Contact, Visit, FAQs, Services, Prescriptions and legal pages, alongside an illustrative store, search, catalogue item details, request basket and checkout-request summary. No administration dashboard is authorised in this phase.
+
+**Commercial boundary:** the user wants customers eventually to purchase products, but the business has not provided confirmed stock, prices, product registration/advertising approvals, fulfilment rules or payment credentials. The interim store is explicitly example-only: local quantity basket, “Ask for price” status, and a clearly described manual email-order-request handoff. It must never show a completed sale or accept payment before the necessary business and regulatory integrations are approved. A direct-notification system, purchase payments, live open status, medical aid agreements and WhatsApp require further confirmed details.
+
+Keep the original product panels, colours and typography. Protect customer privacy and avoid unverified medical claims.

@@ -101,26 +101,27 @@ export const infoCards = [
 ] as const;
 
 // Brand messages shown in the editorial carousel. Replace with genuine, approved testimonials later.
+// These are editorial information prompts, not attributed customer reviews or unverified promises.
 export const messages = [
   {
-    quote: "Good care starts with a conversation, not a sales pitch.",
-    label: "Our approach",
-    image: u("photo-1494790108377-be9c29b29330", 400, 400),
+    quote: "Our online examples are a place to start a conversation. Ask the pharmacy which actual items and prices are available.",
+    label: "Product enquiries",
+    image: u("photo-1607619056574-7b8d3ee536b2", 400, 400),
   },
   {
-    quote: "A familiar counter in the middle of town, for the small things and the everyday.",
-    label: "Our place",
-    image: u("photo-1544005313-94ddf0286df2", 400, 400),
+    quote: "Opening hours are not yet confirmed here. Please call ahead before travelling into the city centre.",
+    label: "Before visiting",
+    image: u("photo-1580489944761-15a19d654956", 400, 400),
   },
   {
-    quote: "Ask questions. Check before you buy. We would rather you leave sure.",
-    label: "Our promise",
-    image: u("photo-1573496359142-b8d87734a5a2", 400, 400),
-  },
-  {
-    quote: "Care for the whole household — from first plasters to everyday routines.",
-    label: "For families",
+    quote: "For prescriptions, repeat medication or personal health concerns, speak directly with the pharmacy about the appropriate process.",
+    label: "Prescription questions",
     image: u("photo-1609220136736-443140cffec6", 400, 400),
+  },
+  {
+    quote: "You can browse first-aid, personal care and family-care examples, then use the request basket to prepare an enquiry.",
+    label: "Explore categories",
+    image: u("photo-1631729371254-42c2892f0e6e", 400, 400),
   },
 ];
 

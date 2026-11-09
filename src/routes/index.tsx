@@ -171,7 +171,7 @@ function Editorial() {
           <div className="overflow-hidden" aria-live="polite">
             <blockquote key={i} className={`animate-in fade-in duration-700 ${dir > 0 ? "slide-in-from-right-12" : "slide-in-from-left-12"}`}>
               <p className="display text-[clamp(2rem,4.2vw,4rem)] leading-[0.98]">“{m.quote}”</p>
-              <footer className="mt-6 text-sm text-muted-foreground">{m.label} · Kalahari Pharmacy</footer>
+              <footer className="mt-6 text-sm text-muted-foreground">{m.label} · Website information</footer>
             </blockquote>
           </div>
           <div className="mt-10 flex items-center gap-3">
