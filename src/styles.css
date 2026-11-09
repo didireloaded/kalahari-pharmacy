@@ -191,6 +191,8 @@
 .hero-object-left { transform: translate3d(calc(var(--object-offset, 155px) * -1), 0, 0) rotate(-12deg); filter: drop-shadow(0 24px 22px rgb(0 0 0 / 25%)); }
 .hero-object-right { transform: translate3d(var(--object-offset, 155px), 0, 0) rotate(11deg); filter: drop-shadow(0 24px 22px rgb(0 0 0 / 25%)); }
 @media (max-width: 767px) {
+  /* Keep the scene legible and avoid expensive parallax on smaller devices. */
+  .reveal { transition-duration: .5s, .55s; transform: translateY(20px); }
   .hero-person { filter: brightness(.8); }
   .hero-copy h1 { max-width: 11ch; }
   .scroll-hero { min-height: 1050px; }

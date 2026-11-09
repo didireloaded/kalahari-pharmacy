@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, type PointerEvent } from "react";
+import { useRef, useState, type PointerEvent } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, MapPin, MessageCircle, Phone, Mail, Instagram } from "lucide-react";
 import { business, categories, featured, getCategory, images, infoCards, messages, type Category } from "@/content/site";
 import { useReveal } from "@/lib/motion";
@@ -71,27 +71,33 @@ function About() {
 }
 
 function ProductPanel({ cat, onOpen, delay, idx }: { cat: Category; onOpen: (c: Category) => void; delay: number; idx: number }) {
-  const [t, setT] = useState({ x: 0, y: 0 });
+  const productImage = useRef<HTMLImageElement>(null);
   const move = (e: PointerEvent<HTMLElement>) => {
-    if (e.pointerType !== "mouse") return;
-    const r = e.currentTarget.getBoundingClientRect();
-    setT({ x: (e.clientX - r.left) / r.width - 0.5, y: (e.clientY - r.top) / r.height - 0.5 });
+    if (e.pointerType !== "mouse" || !productImage.current) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    // A single DOM transform avoids rerendering the entire category card on each pointer event.
+    productImage.current.style.transform = `translate(calc(-50% + ${x * 24}px), calc(-42% + ${y * 18}px)) rotate(${(cat.tone === "sun" ? -8 : 8) + x * 8}deg)`;
+  };
+  const reset = () => {
+    if (productImage.current) productImage.current.style.transform = `translate(-50%, -42%) rotate(${cat.tone === "sun" ? -8 : 8}deg)`;
   };
   const sun = cat.tone === "sun";
   return (
-    <article data-reveal onPointerMove={move} onPointerLeave={() => setT({ x: 0, y: 0 })} style={{ transitionDelay: `${delay}ms` }}
-      className={`reveal relative flex aspect-[4/5] flex-col overflow-hidden p-6 md:aspect-[5/6] md:p-9 ${sun ? "bg-sun text-sun-foreground" : "bg-wine text-wine-foreground"}`}>
+    <article data-reveal onPointerMove={move} onPointerLeave={reset} style={{ transitionDelay: `${delay}ms` }}
+      className={`reveal relative flex min-h-[420px] flex-col overflow-hidden p-6 sm:min-h-[510px] md:aspect-[5/6] md:min-h-0 md:p-9 ${sun ? "bg-sun text-sun-foreground" : "bg-wine text-wine-foreground"}`}>
       <div className="flex items-start justify-between gap-4">
         <h3 className="display max-w-[8ch] text-[clamp(2.5rem,5vw,4.75rem)]">{cat.name}</h3>
         <span className={`rounded-full px-3 py-1 text-xs ${sun ? "bg-sun-foreground/10" : "bg-paper/15"}`}>0{idx + 1}</span>
       </div>
-      <img src={cat.object} alt="" aria-hidden loading="lazy" width={816} height={816}
+      <img ref={productImage} src={cat.object} alt="" aria-hidden loading="lazy" decoding="async" width={816} height={816}
         className="pointer-events-none absolute left-1/2 top-1/2 w-[62%] max-w-[420px] drop-shadow-[0_40px_40px_oklch(0.15_0.04_30/0.4)] transition-transform duration-500 ease-out"
-        style={{ transform: `translate(calc(-50% + ${t.x * 24}px), calc(-42% + ${t.y * 18}px)) rotate(${(sun ? -8 : 8) + t.x * 8}deg)` }} />
-      <div className="relative mt-auto flex items-end justify-between gap-4">
+        style={{ transform: `translate(-50%, -42%) rotate(${sun ? -8 : 8}deg)` }} />
+      <div className="relative mt-auto flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
         <p className="max-w-[16rem] text-sm opacity-85">{cat.short}</p>
         <button type="button" onClick={() => onOpen(cat)} aria-label={`Details: ${cat.name}`}
-          className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-paper px-5 py-2.5 text-sm font-medium text-ink transition-transform hover:scale-105">
+          className="group inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full bg-paper px-5 py-2.5 text-sm font-medium text-ink transition-transform hover:scale-105">
           Details <ArrowRight className={`nudge h-4 w-4 ${sun ? "text-tangerine" : "text-wine"}`} />
         </button>
       </div>
