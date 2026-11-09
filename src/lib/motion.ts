@@ -28,10 +28,12 @@ export function useParallax() {
       raf = 0;
       const small = window.innerWidth < 768;
       document.querySelectorAll<HTMLElement>("[data-parallax]").forEach((el) => {
-        const speed = parseFloat(el.dataset.parallax || "0") * (small ? 0.4 : 1);
-        const r = el.parentElement!.getBoundingClientRect();
+        const speed = parseFloat(el.dataset['parallax'] || "0") * (small ? 0.4 : 1);
+        const parent = el.parentElement;
+        if (!parent) return;
+        const r = parent.getBoundingClientRect();
         const center = r.top + r.height / 2 - window.innerHeight / 2;
-        const scale = el.dataset.scale ? 1 + Math.max(0, Math.min(0.12, -center / 4000 + 0.06)) : 1;
+        const scale = el.dataset['scale'] ? 1 + Math.max(0, Math.min(0.12, -center / 4000 + 0.06)) : 1;
         el.style.transform = `translate3d(0, ${(center * speed).toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
       });
     };

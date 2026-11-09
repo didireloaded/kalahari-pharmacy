@@ -4,6 +4,7 @@ import { Mail, X, ShieldCheck } from "lucide-react";
 import { getCategory } from "@/content/site";
 import { buildMailto, useEnquiry } from "@/lib/enquiry";
 import { toneClass } from "@/components/site/CategoryDetail";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/enquiry")({
   head: () => ({
@@ -37,7 +38,8 @@ function Enquiry() {
         <div className="mt-12 grid gap-12 md:grid-cols-2">
           <ul className="space-y-3">
             {items.map((s) => {
-              const c = getCategory(s)!;
+              const c = getCategory(s);
+              if (!c) return null;
               return (
                 <li key={s} className={`flex items-center justify-between rounded-3xl px-6 py-5 animate-in fade-in slide-in-from-left-4 ${toneClass[c.tone]}`}>
                   <span className="display text-3xl">{c.name}</span>
@@ -54,13 +56,14 @@ function Enquiry() {
             </label>
             <label className="block">
               <span className="text-sm font-medium">Short note (optional)</span>
-              <textarea value={note} onChange={(e) => setNote(e.target.value)} maxLength={400} rows={4} placeholder="e.g. Looking for sun care for sensitive skin" className="mt-2 w-full rounded-2xl bg-muted px-4 py-3 text-base outline-none focus:ring-2 focus:ring-ring" />
+              <textarea value={note} onChange={(e) => setNote(e.target.value)} maxLength={400} rows={4} placeholder="e.g. Please confirm pack sizes" className="mt-2 w-full rounded-2xl bg-muted px-4 py-3 text-base outline-none focus:ring-2 focus:ring-ring" />
             </label>
             <p className="flex gap-2 rounded-2xl bg-ice p-4 text-sm"><ShieldCheck className="h-5 w-5 shrink-0 text-hero" aria-hidden />Please don't include health history or prescriptions. This opens your email app with a pre-filled message — nothing is stored on our side.</p>
             <button type="submit" className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm text-paper"><Mail className="h-4 w-4" />Open email to send</button>
           </form>
         </div>
       )}
+      <Button asChild variant="outline" className="mt-10"><Link to="/store">Browse illustrative store items</Link></Button>
     </section>
   );
 }
