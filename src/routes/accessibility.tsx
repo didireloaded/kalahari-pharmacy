@@ -1,0 +1,8 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { InformationPage } from "@/components/site/InformationPage";
+import { pageHead } from "@/lib/seo";
+export const Route = createFileRoute("/accessibility")({
+ head: () => pageHead("/accessibility", "Accessibility information", "The website aims to be usable with a keyboard, touch, larger text and reduced motion. This is an accessibility statement of intent, not a certification."),
+ component: Page,
+});
+function Page() { return <InformationPage title="Access without obstacles" intro="The website aims to be usable with a keyboard, touch, larger text and reduced motion. This is an accessibility statement of intent, not a certification." sections={[{"title": "Motion and navigation", "text": "The photographic intro has a Skip intro control. When your device requests reduced motion, the complete hero is shown without the staged scroll animation. A skip-to-content link, named navigation controls and visible focus indicators support keyboard use."}, {"title": "Reading and browsing", "text": "Pages use headings, image descriptions, labelled catalogue filters and quantity controls. The mobile menu can be closed with Escape, and your focus returns to its trigger. Product availability and price status are written in text, not conveyed only by colour."}, {"title": "Alternative contact", "text": "If something is difficult to use, call +264 61 252 448 or email kalpharm@iway.na with the page and problem. Avoid medical details in that message. A full assistive-technology audit and real-device cross-browser review remain to be completed."}]} />; }
