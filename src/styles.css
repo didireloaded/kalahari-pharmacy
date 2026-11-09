@@ -95,7 +95,7 @@
   * { border-color: var(--color-border); }
   html { -webkit-font-smoothing: antialiased; }
   body {
-    background-color: var(--canvas);
+    background-color: var(--paper);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-size: 16px;

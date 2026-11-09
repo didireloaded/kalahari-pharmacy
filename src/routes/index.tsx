@@ -80,7 +80,7 @@ function ProductPanel({ cat, onOpen, delay, idx }: { cat: Category; onOpen: (c: 
   const sun = cat.tone === "sun";
   return (
     <article data-reveal onPointerMove={move} onPointerLeave={() => setT({ x: 0, y: 0 })} style={{ transitionDelay: `${delay}ms` }}
-      className={`reveal relative flex aspect-[4/5] flex-col overflow-hidden rounded-[28px] p-6 md:aspect-[5/6] md:rounded-[36px] md:p-9 ${sun ? "bg-sun text-sun-foreground" : "bg-wine text-wine-foreground"}`}>
+      className={`reveal relative flex aspect-[4/5] flex-col overflow-hidden p-6 md:aspect-[5/6] md:p-9 ${sun ? "bg-sun text-sun-foreground" : "bg-wine text-wine-foreground"}`}>
       <div className="flex items-start justify-between gap-4">
         <h3 className="display max-w-[8ch] text-[clamp(2.5rem,5vw,4.75rem)]">{cat.name}</h3>
         <span className={`rounded-full px-3 py-1 text-xs ${sun ? "bg-sun-foreground/10" : "bg-paper/15"}`}>0{idx + 1}</span>
