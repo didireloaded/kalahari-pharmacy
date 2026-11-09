@@ -21,8 +21,8 @@ export const suggestWellnessCategories=createServerFn({method:"POST"})
     }catch{throw new Error("AI guide unavailable. Please browse categories.");}
     if(!response.ok)throw new Error(response.status===402?"AI credits unavailable. Browse categories instead.":"AI guide is temporarily unavailable.");
     const payload:unknown=await response.json();
-    const choices=payload&&typeof payload==="object"&&(payload as {choices?:Array<{message?:{content?:unknown}}>}).choices;
-    const content=choices?.[0]?.message?.content;
+    const typed=payload&&typeof payload==="object" ? payload as {choices?:Array<{message?:{content?:unknown}}>} : null;
+    const content=typed?.choices?.[0]?.message?.content;
     if(typeof content!=="string")throw new Error("AI returned no categories. Browse directly.");
     let decoded:unknown;
     try{const fragment=content.match(/\{[\s\S]*\}/);decoded=JSON.parse(fragment?.[0]||"{}");}
