@@ -25,6 +25,12 @@ export function ScrollHero() {
       const complete = clamp((scroll - 0.12) / 0.68);
       const intro = clamp(1 - scroll / 0.48);
       const reduced = mq.matches;
+      const assembled = root.querySelector<HTMLElement>(".hero-assembled");
+      if (assembled) {
+        const hidden = !reduced && complete < 0.25;
+        assembled.inert = hidden;
+        assembled.setAttribute("aria-hidden", String(hidden));
+      }
       root.style.setProperty("--intro-visibility", String(reduced ? 0 : intro));
       root.style.setProperty("--assembled-visibility", String(reduced ? 1 : complete));
       root.style.setProperty("--assembled-offset", String(reduced ? 0 : Math.round((1 - complete) * 90)) + "px");
@@ -61,7 +67,7 @@ export function ScrollHero() {
           <img src={introAsset.url} alt="" className="h-full w-full object-cover object-center" fetchPriority="high" />
           <div className="absolute inset-0 bg-ink/20" />
         </div>
-        <div className="hero-assembled absolute inset-0 flex flex-col items-center justify-center overflow-hidden bg-hero px-5 text-center text-paper md:px-12">
+        <div inert aria-hidden="true" className="hero-assembled absolute inset-0 flex flex-col items-center justify-center overflow-hidden bg-hero px-5 text-center text-paper md:px-12">
           <div aria-hidden="true" className="pointer-events-none absolute -left-32 top-10 h-[65vw] w-[65vw] rounded-full bg-hero-deep/20" />
           <div aria-hidden="true" className="pointer-events-none absolute -right-40 bottom-0 h-[55vw] w-[55vw] rounded-full bg-ice/10" />
           <img src={images.hero} alt="" aria-hidden="true" width={900} height={1100}
